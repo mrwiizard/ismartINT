@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SLIDES = [
   {
-    mark: { src: "/ismart-icon.png", filter: 'brightness(0) saturate(100%) opacity(0.82)', w: 256, h: 256 },
+    mark: { src: "/ismart-icon.png", filter: 'brightness(0) opacity(0.82)', w: 256, h: 256 },
     title: "Liquidity Infrastructure",
     desc: "Capital is dynamic. We build core infrastructure that enables funds to be stored, converted, and cleared in real time across systems. Re-routing the flow of value with absolute speed.",
 },
@@ -26,7 +26,7 @@ const SLIDES = [
     desc: "Seamless connectivity for individuals. Real-time P2P mobile transfers, utilities payments, and secure personal wallets bringing the digital economy to everyone.",
 },
   {
-    mark: { src: "/new ismart logo.png", filter: 'brightness(0) saturate(100%) opacity(0.86)', w: 2349, h: 626 },
+    mark: { src: "/new ismart logo.png", filter: 'brightness(0) opacity(0.86)', w: 2349, h: 626 },
     title: "Interconnected Corridors",
     desc: "Bridging cross-border transaction channels across West, East, and Southern Africa. A unified network core for borderless financial movement across the continent.",
 }
@@ -75,7 +75,7 @@ export default function BrandStatement() {
         const startPos = (index / (words.length - 1)) * 0.8;
         
         tl.to(word, {
-          color: '#C57950', // Active bronze glow highlight
+          color: '#C09078', // Active bronze glow highlight
           textShadow: '0 0 20px rgba(197, 121, 80, 0.35)',
           opacity: 1,
           scale: 1.05,

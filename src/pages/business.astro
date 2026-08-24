@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import MainLayout from '../layouts/MainLayout.astro';
-import { ArrowRight, ChevronRight, CreditCard, Code2, Wallet, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ChevronRight, CreditCard, Boxes, Users, CalendarClock } from 'lucide-react';
 
 /**
  * iSMART FOR BUSINESS — HERO
@@ -56,30 +56,30 @@ const cards = [
 const offers = [
   {
     Icon: CreditCard,
-    title: 'Payment acceptance',
+    title: 'Payments',
     desc: 'Cards, mobile money, bank transfer and QR through one integration.',
   },
   {
-    Icon: Code2,
-    title: 'Developer tooling',
-    desc: 'REST APIs, SDKs, webhooks and a sandbox you can build against today.',
+    Icon: Boxes,
+    title: 'Inventory',
+    desc: 'Keep stock and sales in one view instead of two systems.',
   },
   {
-    Icon: Wallet,
-    title: 'Settlement & reporting',
-    desc: 'T+1 settlement with a live view of every transaction you process.',
+    Icon: Users,
+    title: 'Payroll',
+    desc: 'Pay your team on schedule, from the same account you trade on.',
   },
   {
-    Icon: ShieldCheck,
-    title: 'Security & compliance',
-    desc: 'PCI DSS Level 1, end-to-end encryption and continuous monitoring.',
+    Icon: CalendarClock,
+    title: 'Scheduled transactions',
+    desc: 'Set recurring payments once and let them run on time.',
   },
 ];
 ---
 
 <MainLayout
-  title="iSmart Classic | iSmart for Business"
-  description="iSmart Classic is the business side of iSmart International — accept cards, mobile money, bank transfers and QR across African markets, with settlement, reporting and developer tooling built in."
+  title="iSmartPay Classic | iSmart for Business"
+  description="iSmartPay Classic is the business dashboard from iSmart International — payments, inventory, payroll and scheduled transactions in one place, across African markets."
 >
   <section
     data-nav-theme="dark"
@@ -116,28 +116,25 @@ const offers = [
     <div class="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-center px-6 pb-16 pt-36 md:px-10 lg:pt-40">
       <div class="hero-copy">
         <div data-reveal="fade" class="mb-6 flex items-center gap-3">
-          <span class="h-px w-8 bg-gradient-to-r from-transparent to-bronze-500"></span>
-          <span class="eyebrow text-bronze-500">iSmart Classic</span>
+         
         </div>
 
         <h1 data-reveal style="--reveal-delay:80ms" class="hero-title font-display">
-          <span class="text-metal">Every way your customers pay.</span>
-          <span class="text-bronze-object"> One integration.</span>
+          <span class="text-metal">Every part of your business.</span>
+          <span class="text-bronze-object"> One dashboard.</span>
         </h1>
 
         <p data-reveal style="--reveal-delay:180ms" class="hero-sub">
-          Accept payments, settle reliably and build on top through one
-          connection to iSmart.
+          iSmart Classic brings payments, inventory, payroll and scheduled
+          transactions into one professional dashboard so you can run the
+          operation from a single place.
         </p>
 
         <div data-reveal style="--reveal-delay:260ms" class="mt-9 flex flex-wrap items-center gap-4">
           <a
             href="https://www.pay.ismartghana.com"
-            class="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-emerald-700 px-8 py-4 font-display text-sm font-semibold text-white transition-all duration-500 hover:bg-emerald-600 hover:shadow-[0_0_44px_-8px_rgba(0,161,132,0.55)]"
+            class="btn-metal"
           >
-            <span
-              class="pointer-events-none absolute inset-y-0 -left-full w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-bronze-400/30 to-transparent transition-all duration-700 group-hover:left-[150%]"
-            ></span>
             Go to iSmartPay
             <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
           </a>
@@ -149,6 +146,8 @@ const offers = [
             What we offer
           </a>
         </div>
+
+       
       </div>
     </div>
 
@@ -184,7 +183,7 @@ const offers = [
     <div class="biz-head">
       <h2 data-reveal class="biz-title font-display">Your payments, handled end to end</h2>
       <p data-reveal style="--reveal-delay:100ms" class="biz-lede">
-        Connect once and iSmart takes it from there — collecting from every rail
+        Connect once and iSmart takes it from there collecting from every rail
         your customers use, settling to your account on schedule, and giving your
         developers the tooling to build on top.
       </p>
@@ -264,7 +263,7 @@ const offers = [
 
         <p class="glass-body">
           Tell us the rails, volumes and markets you need. We will get you from
-          first conversation to first live transaction — with the integration
+          first conversation to first live transaction with the integration
           work, compliance and settlement handled alongside you.
         </p>
 
@@ -311,6 +310,15 @@ const offers = [
     line-height: 0.96;
     letter-spacing: -0.038em;
     text-wrap: balance;
+  }
+
+  .hero-trust {
+    margin-top: 1.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-silver-500);
   }
 
   .hero-sub {

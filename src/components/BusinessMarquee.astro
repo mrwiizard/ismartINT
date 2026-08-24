@@ -27,9 +27,13 @@ const photos = fs.existsSync(PHOTO_DIR)
   ? fs.readdirSync(PHOTO_DIR).filter((f) => PHOTO_EXT.test(f)).sort()
   : [];
 
-// Filename -> readable alt text: "accra-fabric-stall.jpg" -> "Accra fabric stall"
+// Filename -> readable alt text: "accra-fabric-stall.jpg" -> "Accra fabric stall".
+// Stock exports are often just an ID ("127018.jpg"); announcing that to a
+// screen reader is worse than saying nothing, so those become decorative.
 const toAlt = (file: string) => {
   const words = file.replace(PHOTO_EXT, '').replace(/[-_]+/g, ' ').trim();
+  const descriptive = /[a-z]{3}/i.test(words) && words.split(' ').length > 1;
+  if (!descriptive) return '';
   return words.charAt(0).toUpperCase() + words.slice(1);
 };
 
@@ -134,6 +138,7 @@ const toneClass: Record<string, string> = {
                     <img
                       src={card.src}
                       alt={pass === 1 ? '' : card.alt}
+                      aria-hidden={pass === 1 || !card.alt ? 'true' : undefined}
                       loading="lazy"
                       decoding="async"
                       class="h-full w-full object-cover"
@@ -160,11 +165,8 @@ const toneClass: Record<string, string> = {
     <a
       data-reveal="fade"
       href="https://www.pay.ismartghana.com"
-      class="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-emerald-700 px-8 py-4 font-display text-sm font-semibold text-white transition-all duration-500 hover:bg-emerald-600 hover:shadow-[0_0_44px_-8px_rgba(0,161,132,0.55)]"
+      class="btn-metal"
     >
-      <span
-        class="pointer-events-none absolute inset-y-0 -left-full w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-bronze-400/30 to-transparent transition-all duration-700 group-hover:left-[150%]"
-      ></span>
       Explore iSmartPay
       <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
     </a>
@@ -284,7 +286,7 @@ const toneClass: Record<string, string> = {
   .tile-emerald svg { color: var(--color-emerald-300); }
 
   .tile-bronze {
-    background: linear-gradient(150deg, #A96541 0%, #4A2C1C 100%);
+    background: linear-gradient(150deg, #996145 0%, #4A2C1C 100%);
     color: var(--color-bronze-100);
   }
   .tile-bronze svg { color: var(--color-bronze-300); }

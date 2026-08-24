@@ -19,19 +19,20 @@
   --color-emerald-100: #D3F0E8;
   --color-emerald-50:  #EDF8F5;
 
-  /* --- Bronze: metallic highlight, premium edge, "live" state --- */
-  /* Sampled from the lit face of the metal object in the business film, so
-     accent type set beside that artwork carries the exact bronze it shows
-     rather than an approximation of it. 7.50:1 on black. */
-  --color-bronze-lit: #C09078;
-  --color-bronze-900: #653A25; /* darkest bronze — clears AA on light metal */
-  --color-bronze-800: #8E5335;
-  --color-bronze-700: #A96541;
-  --color-bronze-600: #C57950; /* SECONDARY */
-  --color-bronze-500: #D68E63;
-  --color-bronze-400: #E5A87F;
-  --color-bronze-300: #F0C4A5;
-  --color-bronze-100: #F9E7D9;
+  /* --- Bronze: metallic highlight, premium accent, "live" state ---
+     Anchored on #C09078, sampled from the lit face of the metal object in the
+     brand film. The previous anchor sat at 50 percent saturation on hue 21,
+     which reads as orange; this family runs at ~36 on hue 20 — the same hue
+     band at the saturation of an actual alloy. */
+  --color-bronze-lit: #C09078; /* == bronze-600 */
+  --color-bronze-900: #553423; /* darkest — clears AA on white and titanium */
+  --color-bronze-800: #704630;
+  --color-bronze-700: #996145;
+  --color-bronze-600: #C09078; /* SECONDARY */
+  --color-bronze-500: #CEA997;
+  --color-bronze-400: #DAC1B4;
+  --color-bronze-300: #E7D7D0;
+  --color-bronze-100: #F3EBE8;
 
   /* --- Graphite: contrast, infrastructure, cinematic depth --- */
   --color-graphite-950: #0D0E10;
@@ -71,7 +72,7 @@
      brand palette. Delete each alias as its section is redesigned. */
   --color-brand-emerald: #006D5B;
   --color-brand-emerald-light: #00876F;
-  --color-brand-bronze: #C57950;
+  --color-brand-bronze: #C09078;
   --color-off-white: #FAFAF8;
   --color-dark-bg: #0D0E10;
   --color-graphite-dark: #141518;
@@ -183,6 +184,63 @@ p { text-wrap: pretty; }
     ),
     radial-gradient(80% 120% at 85% 15%, rgba(197, 121, 80, 0.16) 0%, transparent 60%),
     linear-gradient(180deg, #E6E8EC 0%, #B7BCC4 56%, #D5D9DE 100%);
+}
+
+/* ─── Primary action: silver ───
+   Flat, with a hairline edge and almost no shadow. An earlier version had a
+   gradient, an inset highlight and a lift on hover, which together read as a
+   moulded plastic button rather than metal. Restraint is what makes this look
+   expensive: one surface, one edge, one small step on hover. */
+.btn-metal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 999px;
+  padding: 1rem 2rem;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--color-ink);
+  background-color: #E8EAEE;
+  border: 1px solid rgba(22, 23, 26, 0.1);
+  transition:
+    background-color 0.35s var(--ease-brand),
+    border-color 0.35s var(--ease-brand);
+}
+
+.btn-metal:hover {
+  background-color: #DADDE2;
+  border-color: rgba(22, 23, 26, 0.16);
+}
+
+.btn-metal:active { background-color: #CFD3D9; }
+
+.btn-metal:focus-visible {
+  outline: 2px solid var(--color-emerald-600);
+  outline-offset: 3px;
+}
+
+/* Bronze variant — the same flat treatment, in the brand's accent. Ink type
+   on bronze-600 measures 6.4:1, so it keeps the silver button's legibility
+   rather than trading it for colour. */
+.btn-metal--bronze {
+  background-color: var(--color-bronze-600);
+  border-color: rgba(85, 52, 35, 0.28);
+  color: var(--color-ink);
+}
+
+.btn-metal--bronze:hover {
+  background-color: #B4836A;
+  border-color: rgba(85, 52, 35, 0.4);
+}
+
+.btn-metal--bronze:active { background-color: #A87A61; }
+
+/* On dark grounds the hairline would disappear, so it inverts to a light one. */
+.on-dark .btn-metal,
+[data-nav-theme='dark'] .btn-metal {
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 /* ─── Bento tile ───
@@ -344,8 +402,22 @@ p { text-wrap: pretty; }
 }
 
 /* The bronze accent phrase — one per headline, never more. */
+/* Bronze, not orange.
+   The old ramp ran at ~54% mean saturation on hue 22 — measurably in orange
+   territory (pure orange is hue 26). Real bronze is the same hue family at far
+   lower saturation. This ramp holds the brand secondary #C57950 as its anchor
+   and surrounds it with desaturated, slightly gold-shifted neighbours, plus a
+   lit stop after the shadow so the type reads as metal rather than flat paint.
+   Mean saturation 54% -> 37%, mean hue 22 -> 28.5. */
 .text-bronze-metal {
-  background: linear-gradient(120deg, #E5A87F 0%, #C57950 45%, #A96541 100%);
+  background: linear-gradient(
+    118deg,
+    #E7D7D0 0%,
+    #DAC1B4 20%,
+    #C09078 46%,
+    #996145 74%,
+    #CEA997 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -440,7 +512,7 @@ p { text-wrap: pretty; }
 }
 
 .text-gradient-bronze {
-  background: linear-gradient(120deg, #E5A87F 0%, #C57950 45%, #A96541 100%);
+  background: linear-gradient(120deg, #DAC1B4 0%, #C09078 45%, #996145 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

@@ -34,3 +34,6 @@ CLAUDE.md
 AGENTS.md
 .claude/
 .claude-*/
+
+# full-resolution originals, kept out of the repo
+_originals/

@@ -67,7 +67,7 @@ export default function DeveloperConsole() {
               { boxShadow: '0 0 0px rgba(197, 121, 80, 0)' },
               { 
                 boxShadow: '0 0 35px rgba(197, 121, 80, 0.25)', 
-                borderColor: '#C57950',
+                borderColor: '#C09078',
                 duration: 0.6, 
                 yoyo: true, 
                 repeat: 1,

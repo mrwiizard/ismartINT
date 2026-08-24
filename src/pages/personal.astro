@@ -23,6 +23,36 @@ import { ArrowRight } from 'lucide-react';
  * and type scale live in plain CSS so nothing depends on a scanned utility.
  */
 
+// The closing rail. One list drives the slides and the dots, so adding or
+// removing a photograph needs no other change. Captions describe the moment —
+// they do not claim the app is in use in the frame.
+const railSlides = [
+  {
+    src: '/businesses/african-american-man-paying-eco-friendly-food-checkout.webp',
+    alt: 'A customer paying at a grocery checkout',
+    label: 'Pay',
+    text: 'Everyday payments, wherever the day takes you.',
+  },
+  {
+    src: '/businesses/male-customer-checking-types-pasta-grains-local-market.webp',
+    alt: 'A shopper choosing grains at a local market',
+    label: 'Everyday',
+    text: 'From the corner market to the checkout queue.',
+  },
+  {
+    src: '/businesses/young-african-female-fruit-seller-at-her-stand.webp',
+    alt: 'A fruit seller at her stand',
+    label: 'Send & receive',
+    text: 'Money that moves between people, simply.',
+  },
+  {
+    src: '/businesses/smiling-african-entrepreneur-cafe-counter-using-digital-tabl.webp',
+    alt: 'A cafe owner at her counter',
+    label: 'Manage',
+    text: 'Stay close to what comes in and goes out.',
+  },
+];
+
 const moments = [
   {
     label: 'Send',
@@ -83,7 +113,7 @@ const moments = [
         </p>
 
         <div data-reveal style="--reveal-delay:250ms" class="ph-actions">
-          <a href="https://www.pay.ismartghana.com" class="ph-cta">
+          <a href="https://www.pay.ismartghana.com" class="btn-metal">
             Explore iSmartPay
             <ArrowRight className="h-4 w-4" />
           </a>
@@ -121,19 +151,19 @@ const moments = [
     </div>
   </section>
 
-  <WaveDivider to="var(--color-graphite-950)" accent="emerald" />
+  <WaveDivider to="#ffffff" accent="emerald" />
 
   {/* ══════════════ 3 · iSMARTPAY STANDARD ══════════════ */}
-  <section data-nav-theme="dark" class="ph-product">
+  <section data-nav-theme="light" class="ph-product">
     <div class="ph-shell ph-product__inner">
       <div class="ph-product__copy">
-        <span data-reveal="fade" class="eyebrow ph-eyebrow-dark">iSmartPay Standard</span>
+        <span data-reveal="fade" class="eyebrow ph-eyebrow">iSmartPay Standard</span>
 
-        <h2 data-reveal style="--reveal-delay:80ms" class="ph-h2 ph-h2--dark font-display">
+        <h2 data-reveal style="--reveal-delay:80ms" class="ph-h2 font-display">
           One experience for everyday payments.
         </h2>
 
-        <p data-reveal style="--reveal-delay:160ms" class="ph-sub ph-sub--dark">
+        <p data-reveal style="--reveal-delay:160ms" class="ph-sub">
           iSmartPay Standard gives individuals a simple digital way to send,
           receive and manage everyday payments — bringing convenience,
           accessibility and control closer to you.
@@ -144,7 +174,7 @@ const moments = [
         </p>
 
         <div data-reveal style="--reveal-delay:300ms" class="ph-actions">
-          <a href="https://www.pay.ismartghana.com" class="ph-cta ph-cta--light">
+          <a href="https://www.pay.ismartghana.com" class="btn-metal">
             Explore iSmartPay
             <ArrowRight className="h-4 w-4" />
           </a>
@@ -156,11 +186,11 @@ const moments = [
       <div data-reveal="fade" style="--reveal-delay:180ms" class="ph-device">
         <svg class="ph-device__waves" viewBox="0 0 520 640" fill="none" aria-hidden="true">
           <path class="ph-wave ph-wave--1" d="M-40 300 C120 210 220 400 380 320 C470 274 520 250 580 268"
-                stroke="var(--color-emerald-500)" stroke-width="1.5" opacity="0.5" />
+                stroke="var(--color-emerald-700)" stroke-width="1.5" opacity="0.55" />
           <path class="ph-wave ph-wave--2" d="M-40 372 C130 292 230 470 400 388 C480 350 530 336 580 350"
-                stroke="var(--color-bronze-600)" stroke-width="1.5" opacity="0.45" />
+                stroke="var(--color-bronze-800)" stroke-width="1.5" opacity="0.5" />
           <path class="ph-wave ph-wave--3" d="M-40 232 C140 156 210 330 370 250 C450 210 520 196 580 210"
-                stroke="var(--color-emerald-400)" stroke-width="1" opacity="0.25" />
+                stroke="var(--color-emerald-700)" stroke-width="1" opacity="0.28" />
         </svg>
 
         <div class="ph-device__body">
@@ -173,22 +203,13 @@ const moments = [
     </div>
   </section>
 
-  {/* ══════════════ 4 · THE FUTURE ══════════════ */}
-  <section data-nav-theme="dark" class="ph-future">
-    <img
-      src="/africa-presence-1200.webp"
-      srcset="/africa-presence-700.webp 700w, /africa-presence-1200.webp 1200w"
-      sizes="(min-width: 1024px) 46vw, 86vw"
-      alt="The African markets where iSmart operates"
-      width="943"
-      height="1200"
-      loading="lazy"
-      decoding="async"
-      class="ph-map"
-    />
-
-    <div class="ph-shell ph-future__inner">
-      <div class="ph-future__copy">
+  {/* ══════════════ 4 · THE CLOSE ══════════════
+      Copy left, a slider of tall panels right. The panels carry real artwork —
+      the markets map, the app on a phone, the mark itself — rather than mocked
+      app screens: inventing product UI here would mean inventing product. */}
+  <section data-nav-theme="dark" class="ph-close-sec">
+    <div class="ph-close-sec__inner">
+      <div class="ph-close-sec__copy">
         <h2 data-reveal class="ph-h2 ph-h2--dark font-display">
           A new way to move with money.
         </h2>
@@ -204,10 +225,53 @@ const moments = [
         </p>
 
         <div data-reveal style="--reveal-delay:280ms" class="ph-actions">
-          <a href="https://www.pay.ismartghana.com" class="ph-cta ph-cta--light">
+          <a href="https://www.pay.ismartghana.com" class="btn-metal">
             Explore iSmartPay
             <ArrowRight className="h-4 w-4" />
           </a>
+        </div>
+      </div>
+
+      {/* Scroll-snap rail: native scrolling, so it works with a trackpad, a
+          touch swipe, the keyboard and a screen reader without a carousel
+          library. The dots only report position. */}
+      <div class="ph-rail" data-reveal="fade">
+        <ul
+          id="ph-rail-track"
+          class="ph-rail__track"
+          tabindex="0"
+          role="group"
+          aria-label="iSmart in everyday life — scrollable gallery"
+        >
+          {railSlides.map((s, i) => (
+            <li class="ph-slide" aria-label={`${i + 1} of ${railSlides.length}`}>
+              <img
+                src={s.src}
+                alt={s.alt}
+                width="900"
+                height="600"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="ph-slide__cap">
+                <span class="ph-slide__label">{s.label}</span>
+                <span class="ph-slide__text">{s.text}</span>
+              </figcaption>
+            </li>
+          ))}
+        </ul>
+
+        <div class="ph-dots" role="tablist" aria-label="Choose a slide">
+          {railSlides.map((s, i) => (
+            <button
+              type="button"
+              class:list={['ph-dot', i === 0 && 'is-active']}
+              data-dot={i}
+              role="tab"
+              aria-selected={i === 0 ? 'true' : 'false'}
+              aria-label={s.label}
+            ></button>
+          ))}
         </div>
       </div>
     </div>
@@ -250,28 +314,6 @@ const moments = [
   .ph-sub--dark { color: var(--color-silver-400); }
 
   .ph-actions { margin-top: 2.25rem; display: flex; flex-wrap: wrap; gap: 1rem; }
-
-  .ph-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    border-radius: 999px;
-    background: var(--color-emerald-700);
-    padding: 1rem 2rem;
-    font-family: var(--font-display);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: #fff;
-    transition: background 0.5s var(--ease-brand), box-shadow 0.5s var(--ease-brand);
-  }
-
-  .ph-cta:hover {
-    background: var(--color-emerald-600);
-    box-shadow: 0 0 44px -12px rgba(0, 161, 132, 0.6);
-  }
-
-  .ph-cta--light { background: #fff; color: var(--color-ink); }
-  .ph-cta--light:hover { background: rgba(255, 255, 255, 0.9); box-shadow: none; }
 
   /* ══════════════ 1 · hero ══════════════
      Warm white with the faintest emerald and bronze weather behind the stage.
@@ -324,7 +366,10 @@ const moments = [
     text-wrap: balance;
   }
 
-  .ph-title-accent { color: var(--color-emerald-700); }
+  /* Bronze, like every other accent phrase on the site. bronze-600 is the
+     accepted colour but measures 2.68:1 on this warm-white ground, so the
+     light-surface step of the same family carries it at 4.84:1. */
+  .ph-title-accent { color: var(--color-bronze-700); }
 
   .ph-lede {
     margin-top: 1.75rem;
@@ -394,14 +439,12 @@ const moments = [
   }
 
   /* ══════════════ 3 · iSmartPay Standard ══════════════ */
+  /* Flat white, no gradient — the device carries the section on its own. */
   .ph-product {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    background-color: var(--color-graphite-950);
-    background-image:
-      radial-gradient(64% 50% at 76% 26%, rgba(0, 109, 91, 0.16), transparent 70%),
-      radial-gradient(48% 40% at 10% 88%, rgba(197, 121, 80, 0.09), transparent 72%);
+    background-color: #fff;
     padding: 6rem 0 7rem;
   }
 
@@ -418,7 +461,7 @@ const moments = [
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--color-bronze-500);
+    color: var(--color-bronze-900);
   }
 
   /* ─ device ─ */
@@ -460,7 +503,7 @@ const moments = [
     padding: 0.5rem;
     background: linear-gradient(158deg, #33373D 0%, #15171A 46%, #26292E 100%);
     box-shadow:
-      0 40px 90px -30px rgba(0, 0, 0, 0.8),
+      0 40px 80px -28px rgba(22, 23, 26, 0.42),
       inset 0 1px 0 rgba(255, 255, 255, 0.16);
   }
 
@@ -488,34 +531,29 @@ const moments = [
     justify-content: center;
   }
 
-  /* ══════════════ 4 · the future ══════════════ */
-  .ph-future {
+  /* ══════════════ 4 · the close ══════════════ */
+  .ph-close-sec {
     position: relative;
     isolation: isolate;
     overflow: hidden;
     background-color: #0A0708;
     background-image:
-      radial-gradient(58% 46% at 22% 20%, rgba(197, 121, 80, 0.16), transparent 72%),
-      radial-gradient(46% 38% at 84% 88%, rgba(0, 109, 91, 0.1), transparent 74%);
-    padding: 6.5rem 0 8rem;
+      radial-gradient(52% 42% at 18% 24%, rgba(197, 121, 80, 0.16), transparent 72%),
+      radial-gradient(44% 36% at 86% 84%, rgba(0, 109, 91, 0.12), transparent 74%);
+    padding: 6rem 1.5rem 7rem;
   }
 
-  .ph-map {
-    position: absolute;
-    z-index: -1;
-    right: -14%;
-    bottom: -6%;
-    width: 86%;
-    max-width: 34rem;
-    height: auto;
-    opacity: 0.32;
-    /* The artwork is a bronze-on-bronze composition, not a cut-out, so its
-       frame is dissolved rather than shown. */
-    mask-image: radial-gradient(72% 68% at 52% 46%, #000 42%, transparent 100%);
-    -webkit-mask-image: radial-gradient(72% 68% at 52% 46%, #000 42%, transparent 100%);
+  .ph-close-sec__inner {
+    width: 100%;
+    max-width: 76rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: center;
   }
 
-  .ph-future__copy { position: relative; max-width: 42rem; }
+  .ph-close-sec__copy { width: 100%; max-width: 42rem; }
 
   .ph-close {
     margin-top: 2.5rem;
@@ -525,6 +563,104 @@ const moments = [
     letter-spacing: -0.028em;
     color: #fff;
   }
+
+  /* ─ slider rail ─ */
+  .ph-rail { position: relative; width: 100%; min-width: 0; }
+
+  .ph-rail__track {
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0 0 0.5rem;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* The rail runs off the right edge, so it reads as continuing rather than
+       ending at a border. */
+    mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+  }
+
+  .ph-rail__track::-webkit-scrollbar { display: none; }
+  .ph-rail__track:focus-visible { outline: 2px solid var(--color-emerald-500); outline-offset: 4px; border-radius: 1.25rem; }
+
+  .ph-slide {
+    position: relative;
+    flex: 0 0 auto;
+    width: 74vw;
+    max-width: 22rem;
+    aspect-ratio: 3 / 4.1;
+    scroll-snap-align: start;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: linear-gradient(168deg, #17181B 0%, #0B0C0E 100%);
+  }
+
+  .ph-slide > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .ph-slide__img--contain { object-fit: contain; padding: 1.25rem; }
+
+  .ph-slide--mark { display: flex; align-items: center; justify-content: center; }
+
+  .ph-slide__mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 30px rgba(0, 161, 132, 0.4));
+  }
+
+  .ph-slide__cap {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: grid;
+    gap: 0.25rem;
+    padding: 2.5rem 1.25rem 1.25rem;
+    background: linear-gradient(to top, rgba(6, 7, 8, 0.92), transparent);
+  }
+
+  .ph-slide__label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-bronze-500);
+  }
+
+  .ph-slide__text {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .ph-dots {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .ph-dot {
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    appearance: none;
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.24);
+    transition: background 0.4s ease, width 0.4s ease;
+  }
+
+  .ph-dot.is-active { width: 1.25rem; background: var(--color-bronze-500); }
+  .ph-dot:hover { background: rgba(255, 255, 255, 0.5); }
+  .ph-dot.is-active:hover { background: var(--color-bronze-400); }
+  .ph-dot:focus-visible { outline: 2px solid var(--color-emerald-500); outline-offset: 3px; }
 
   /* ══════════════ desktop ══════════════ */
   @media (min-width: 1024px) {
@@ -580,9 +716,9 @@ const moments = [
 
     .ph-product__inner { grid-template-columns: 1fr 0.78fr; gap: 5rem; }
 
-    .ph-map { right: -8%; width: 52%; opacity: 0.38; }
-
-    .ph-future { padding: 8rem 0 9.5rem; }
+    .ph-close-sec { padding: 8rem 2.5rem 9rem; }
+    .ph-close-sec__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr); gap: 4.5rem; }
+    .ph-slide { width: 20rem; max-width: none; }
   }
 
   /* ══════════════ motion ══════════════ */
@@ -616,6 +752,100 @@ const moments = [
         { threshold: 0.25 }
       );
       io.observe(film);
+    }
+  }
+
+  // ── Closing rail ──
+  // Native scroll-snap underneath. On top of it: a timer that advances the
+  // rail, a wheel handler so a plain mouse can drive it sideways, and dots you
+  // can click. Everything only ever sets scrollLeft, so nothing fights the
+  // browser's own scrolling.
+  const rail = document.getElementById('ph-rail-track');
+
+  if (rail) {
+    const slides = Array.from(rail.querySelectorAll('.ph-slide')) as HTMLElement[];
+    const dots = Array.from(document.querySelectorAll('.ph-dot')) as HTMLElement[];
+    const stillness = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let current = 0;
+    let onScreen = false;
+    let heldUntil = 0; // a timestamp, so every pause reason collapses into one
+
+    const originLeft = slides.length ? slides[0].offsetLeft : 0;
+
+    // Native smooth scrolling: browser-managed, interruptible by any direct
+    // scrollLeft write, and one line instead of a hand-rolled rAF tween.
+    const goTo = (i: number, smooth = true) => {
+      const target = slides[Math.max(0, Math.min(i, slides.length - 1))];
+      if (!target) return;
+      rail.scrollTo({
+        left: target.offsetLeft - originLeft,
+        behavior: smooth && !stillness.matches ? 'smooth' : 'auto',
+      });
+    };
+
+    const hold = (ms: number) => { heldUntil = Date.now() + ms; };
+
+    // Dots report position, and can also drive it.
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          current = slides.indexOf(entry.target as HTMLElement);
+          dots.forEach((d, n) => {
+            const active = n === current;
+            d.classList.toggle('is-active', active);
+            d.setAttribute('aria-selected', String(active));
+          });
+        });
+      },
+      { root: rail, threshold: 0.6 }
+    );
+    slides.forEach((s) => io.observe(s));
+
+    dots.forEach((d, i) => {
+      d.addEventListener('click', () => { hold(9000); goTo(i); });
+      d.addEventListener('keydown', (ev) => {
+        const k = (ev as KeyboardEvent).key;
+        if (k === 'Enter' || k === ' ') { ev.preventDefault(); hold(9000); goTo(i); }
+      });
+    });
+
+    // A mouse wheel only sends deltaY, so map it onto the rail's own axis.
+    // At either end the handler stands aside and lets the page scroll on.
+    rail.addEventListener(
+      'wheel',
+      (ev) => {
+        const e = ev as WheelEvent;
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        if (!delta) return;
+        const max = rail.scrollWidth - rail.clientWidth;
+        if ((delta < 0 && rail.scrollLeft <= 0) || (delta > 0 && rail.scrollLeft >= max - 1)) return;
+        e.preventDefault();
+        rail.scrollLeft += delta;
+        hold(6000);
+      },
+      { passive: false }
+    );
+
+    rail.addEventListener('pointerdown', () => hold(9000), { passive: true });
+    rail.addEventListener('mouseenter', () => hold(3.6e6));
+    rail.addEventListener('mouseleave', () => hold(0));
+    rail.addEventListener('focusin', () => hold(3.6e6));
+    rail.addEventListener('focusout', () => hold(0));
+
+    new IntersectionObserver(
+      ([entry]) => { onScreen = entry.isIntersecting; },
+      { threshold: 0.3 }
+    ).observe(rail);
+
+    // One long-lived timer that decides on each tick, rather than being torn
+    // down and rebuilt on every hover — that had a race and simply never ran.
+    if (!stillness.matches && slides.length > 1) {
+      window.setInterval(() => {
+        if (!onScreen || document.hidden || Date.now() < heldUntil) return;
+        goTo(current >= slides.length - 1 ? 0 : current + 1);
+      }, 4500);
     }
   }
 </script>

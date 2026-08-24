@@ -47,7 +47,10 @@ const ART = {
 const width = Math.round((height * ART.w) / ART.h);
 
 // brightness(0) drives the white artwork to solid graphite for light surfaces.
-const filter = tone === 'dark' ? 'brightness(0) saturate(100%) opacity(0.92)' : 'none';
+// Emit the filter ONLY when it is doing something. An inline `filter: none`
+// outranks every stylesheet rule, which silently blocked the header from
+// inverting the wordmark over light sections.
+const filter = tone === 'dark' ? 'brightness(0) opacity(0.92)' : null;
 ---
 
 <img
@@ -59,5 +62,5 @@ const filter = tone === 'dark' ? 'brightness(0) saturate(100%) opacity(0.92)' : 
   loading={loading}
   decoding="async"
   class={`logo-img ${className}`}
-  style={`height:${height}px;width:auto;display:block;filter:${filter}`}
+  style={`height:${height}px;width:auto;display:block${filter ? `;filter:${filter}` : ''}`}
 />

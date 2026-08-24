@@ -1,5 +1,7 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
+import WaveDivider from '../../components/WaveDivider.astro';
+import Logo from '../../components/Logo.astro';
 import { ArrowRight } from 'lucide-react';
 
 /**
@@ -60,6 +62,128 @@ import { ArrowRight } from 'lucide-react';
       <div data-reveal style="--reveal-delay:250ms" class="about-actions">
         <a href="/business" class="about-cta">What we build</a>
         <a href="https://www.pay.ismartghana.com" class="about-link">Go to iSmartPay</a>
+      </div>
+    </div>
+  </section>
+
+  <WaveDivider to="var(--color-paper-warm)" accent="bronze" />
+
+  {/* ══════════════ 2 · HOW iSMART IS BUILT ══════════════
+      The collage is not decoration: business, the infrastructure beneath, and
+      personal — the three things the copy names, in that order. */}
+  <section data-nav-theme="light" class="ab-two">
+    <div class="ab-two__inner">
+      <div data-reveal="fade" class="ab-collage">
+        {/* back — business */}
+        <figure class="ab-panel ab-panel--business">
+          <img
+            src="/businesses/smiling-african-entrepreneur-cafe-counter-using-digital-tabl.webp"
+            alt="A cafe owner working at her counter"
+            width="900" height="600" loading="lazy" decoding="async"
+          />
+        </figure>
+
+        {/* front — the infrastructure both sides run on */}
+        <figure class="ab-panel ab-panel--core" aria-hidden="true">
+          <span class="ab-panel__label">iSmart International</span>
+          <img
+            src="/mark-titanium-plate.webp"
+            alt=""
+            width="700" height="449"
+            loading="lazy" decoding="async"
+            class="ab-panel__plate"
+          />
+          <span class="ab-panel__rule"></span>
+          <span class="ab-panel__sub">Infrastructure layer</span>
+        </figure>
+
+        {/* top — personal */}
+        <figure class="ab-panel ab-panel--personal">
+          <img
+            src="/businesses/young-attractive-woman-jacket-holding-lot-shopping-packages-.webp"
+            alt="A shopper carrying her purchases"
+            width="600" height="900" loading="lazy" decoding="async"
+          />
+        </figure>
+      </div>
+
+      <div class="ab-two__copy">
+        <span data-reveal="fade" class="eyebrow ab-two__eyebrow">How iSmart is built</span>
+
+        <h2 data-reveal style="--reveal-delay:80ms" class="ab-two__title font-display">
+          One company. Two ways in.
+        </h2>
+
+        <p data-reveal style="--reveal-delay:160ms" class="ab-two__body">
+          iSmart International builds the financial infrastructure. <strong>iSmartPay</strong>,
+          our payment service provider, is how that infrastructure reaches people —
+          as everyday payments for individuals, and as <strong>iSmart Classic</strong>
+          for business.
+        </p>
+
+        <div data-reveal style="--reveal-delay:230ms" class="ab-two__routes">
+          <a href="/personal" class="ab-route">
+            <span class="ab-route__label">Personal</span>
+            <span class="ab-route__desc">Send, pay and manage everyday money.</span>
+          </a>
+          <a href="/business" class="ab-route">
+            <span class="ab-route__label">iSmart Classic</span>
+            <span class="ab-route__desc">Accept payments and settle across markets.</span>
+          </a>
+        </div>
+
+        <div data-reveal style="--reveal-delay:300ms" class="ab-two__actions">
+          <a href="https://www.pay.ismartghana.com" class="btn-metal btn-metal--bronze">Explore iSmartPay</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ══════════════ 3 · TRUST ══════════════
+      The reference centres a shield. iSmart's mark is a wave, so the ripples
+      radiate from it instead — the same "reach" the shield conveys, drawn in
+      the brand's own language rather than a borrowed one. */}
+  <section data-nav-theme="dark" class="ab-trust">
+    <div class="ab-trust__inner">
+      <div data-reveal="fade" class="ab-ripple">
+        <svg viewBox="0 0 620 620" fill="none" aria-hidden="true" focusable="false">
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <path
+              class:list={['ab-ring', `ab-ring--${i}`]}
+              d="M170,250 C216,206 262,300 310,256 C358,212 404,296 450,252 L450,368 C404,412 358,328 310,372 C262,416 216,332 170,376 Z"
+              transform={`translate(310 310) scale(${1 + i * 0.42}) translate(-310 -310)`}
+              stroke="var(--color-emerald-400)"
+              stroke-width={(1.6 - i * 0.16).toFixed(2)}
+              stroke-linejoin="round"
+            />
+          ))}
+        </svg>
+
+        <div class="ab-ripple__mark">
+          <Logo mark="icon" height={62} alt="" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="ab-trust__copy">
+       
+
+        <h2 data-reveal style="--reveal-delay:80ms" class="ab-trust__title font-display">
+          Your money deserves confidence.
+        </h2>
+
+        <p data-reveal style="--reveal-delay:160ms" class="ab-trust__body">
+          Moving value asks more of a company than good engineering. iSmart holds
+          <strong>PCI DSS Level 1</strong> certification the card industry's most
+          rigorous tier of validation and treats the protection of transaction
+          data as part of the infrastructure rather than a feature added on top.
+        </p>
+
+        <div data-reveal style="--reveal-delay:240ms" class="ab-trust__actions">
+          <a href="/business#how" class="ab-trust__link">
+            See how payments are handled
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -205,4 +329,288 @@ import { ArrowRight } from 'lucide-react';
     }
     .about-photo { object-position: 68% center; }
   }
+
+  /* ══════════════ 2 · how iSmart is built ══════════════
+     Warm white with the faintest emerald and bronze weather, so the surface
+     has depth without reading as a colour. */
+  .ab-two {
+    background-color: var(--color-paper-warm);
+    background-image:
+      radial-gradient(58% 46% at 16% 22%, rgba(0, 109, 91, 0.05), transparent 70%),
+      radial-gradient(50% 40% at 88% 84%, rgba(197, 121, 80, 0.05), transparent 72%);
+    padding: 5rem 1.5rem 6rem;
+  }
+
+  .ab-two__inner {
+    width: 100%;
+    max-width: 74rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  /* ─ collage ─ */
+  .ab-collage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 0.86;
+    max-width: 34rem;
+    justify-self: center;
+  }
+
+  .ab-panel {
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    background: var(--color-graphite-900);
+    box-shadow: 0 24px 50px -20px rgba(22, 23, 26, 0.34);
+  }
+
+  .ab-panel img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .ab-panel--business { left: 0;   top: 14%;  width: 52%; aspect-ratio: 3 / 2.4; }
+  .ab-panel--personal { right: 0;  top: 0;    width: 44%; aspect-ratio: 3 / 3.2; }
+
+  /* The core panel overlaps both, because it sits under both. */
+  .ab-panel--core {
+    left: 22%;
+    bottom: 0;
+    width: 58%;
+    aspect-ratio: 3 / 2.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 1.5rem;
+    background:
+      radial-gradient(80% 60% at 24% 20%, rgba(0, 109, 91, 0.34), transparent 68%),
+      linear-gradient(158deg, #1A1C1F 0%, #0B0C0E 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 34px 64px -22px rgba(22, 23, 26, 0.52);
+  }
+
+  .ab-panel__label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-bronze-500);
+  }
+
+  .ab-panel__plate {
+    width: 62%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.6);
+  }
+
+  .ab-panel__rule {
+    display: block;
+    height: 1px;
+    width: 2.5rem;
+    background: linear-gradient(to right, var(--color-bronze-600), var(--color-emerald-600));
+  }
+
+  .ab-panel__sub {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-silver-300);
+  }
+
+  /* ─ copy ─ */
+  .ab-two__copy { width: 100%; max-width: 34rem; justify-self: center; }
+  .ab-two__eyebrow { color: var(--color-bronze-900); }
+
+  .ab-two__title {
+    margin-top: 1.25rem;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  .ab-two__body {
+    margin-top: 1.5rem;
+    max-width: 46ch;
+    font-size: clamp(1rem, 1.05vw, 1.125rem);
+    line-height: 1.66;
+    color: var(--color-ink-muted);
+  }
+
+  .ab-two__body strong { color: var(--color-ink); font-weight: 650; }
+
+  /* Two routes, as rules rather than cards. */
+  .ab-two__routes { margin-top: 2.25rem; display: grid; gap: 0; }
+
+  .ab-route {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1.125rem 0;
+    border-top: 1px solid rgba(22, 23, 26, 0.12);
+    transition: border-color 0.4s ease;
+  }
+
+  .ab-route:last-child { border-bottom: 1px solid rgba(22, 23, 26, 0.12); }
+  .ab-route:hover { border-color: var(--color-emerald-700); }
+
+  .ab-route__label {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
+  }
+
+  .ab-route:hover .ab-route__label { color: var(--color-emerald-700); }
+
+  .ab-route__desc { font-size: 0.875rem; color: var(--color-ink-muted); }
+
+  .ab-two__actions { margin-top: 2rem; }
+
+  @media (min-width: 900px) {
+    .ab-two { padding: 7rem 2.5rem 8rem; }
+    .ab-two__inner { grid-template-columns: 1fr 1fr; gap: 4.5rem; }
+    .ab-collage { justify-self: start; max-width: none; }
+    .ab-two__copy { justify-self: start; }
+  }
+
+
+  /* ══════════════ 3 · trust ══════════════
+     Very dark graphite, emerald as the only light, bronze reduced to a single
+     hairline. Calm — the brief asks this section to be the quietest on the
+     page, not the loudest. */
+  .ab-trust {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: #08090A;
+    background-image:
+      radial-gradient(46% 40% at 26% 46%, rgba(0, 109, 91, 0.20), transparent 70%),
+      radial-gradient(40% 34% at 84% 88%, rgba(197, 121, 80, 0.05), transparent 74%);
+    padding: 6rem 1.5rem 7rem;
+  }
+
+  .ab-trust__inner {
+    width: 100%;
+    max-width: 74rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  /* ─ ripple field ─ */
+  .ab-ripple {
+    position: relative;
+    width: 100%;
+    max-width: 30rem;
+    aspect-ratio: 1;
+    justify-self: center;
+  }
+
+  .ab-ripple svg { width: 100%; height: 100%; overflow: visible; }
+
+  .ab-ring {
+    transform-origin: center;
+    /* Each ring further out is fainter — the field reads as reach, not as a
+       stack of outlines. */
+    animation: ab-breathe 9s ease-in-out infinite;
+  }
+
+  .ab-ring--0 { opacity: 0.85; }
+  .ab-ring--1 { opacity: 0.55; animation-delay: -1.4s; }
+  .ab-ring--2 { opacity: 0.36; animation-delay: -2.8s; }
+  .ab-ring--3 { opacity: 0.22; animation-delay: -4.2s; }
+  .ab-ring--4 { opacity: 0.13; animation-delay: -5.6s; }
+  .ab-ring--5 { opacity: 0.07; animation-delay: -7s; }
+
+  @keyframes ab-breathe {
+    0%, 100% { opacity: var(--o, 0.4); }
+    50%      { opacity: calc(var(--o, 0.4) * 1.9); }
+  }
+
+  .ab-ring--0 { --o: 0.44; }
+  .ab-ring--1 { --o: 0.30; }
+  .ab-ring--2 { --o: 0.20; }
+  .ab-ring--3 { --o: 0.13; }
+  .ab-ring--4 { --o: 0.08; }
+  .ab-ring--5 { --o: 0.05; }
+
+  .ab-ripple__mark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 34px rgba(0, 161, 132, 0.45));
+  }
+
+  /* ─ copy ─ */
+  .ab-trust__copy { width: 100%; max-width: 34rem; justify-self: center; }
+  .ab-trust__eyebrow { color: var(--color-bronze-500); }
+
+  .ab-trust__title {
+    margin-top: 1.25rem;
+    font-size: clamp(2rem, 3.9vw, 3.125rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.034em;
+    color: #fff;
+    text-wrap: balance;
+  }
+
+  .ab-trust__body {
+    margin-top: 1.5rem;
+    max-width: 46ch;
+    font-size: clamp(1rem, 1.05vw, 1.125rem);
+    line-height: 1.68;
+    color: var(--color-silver-400);
+  }
+
+  .ab-trust__body strong { color: #fff; font-weight: 650; }
+
+  .ab-trust__actions { margin-top: 2.25rem; }
+
+  .ab-trust__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+    padding-bottom: 3px;
+    transition: color 0.4s ease, border-color 0.4s ease, gap 0.4s ease;
+  }
+
+  .ab-trust__link:hover {
+    color: var(--color-emerald-400);
+    border-color: var(--color-emerald-400);
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 900px) {
+    .ab-trust { padding: 8rem 2.5rem 9rem; }
+    .ab-trust__inner { grid-template-columns: 1fr 1fr; gap: 4.5rem; }
+    .ab-ripple { justify-self: start; max-width: none; }
+    .ab-trust__copy { justify-self: start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ab-ring { animation: none; }
+  }
+
 </style>
