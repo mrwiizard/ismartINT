@@ -1,0 +1,308 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import {
+  ArrowRight, Store, Fuel, UtensilsCrossed, Pill, Truck, Smartphone,
+  Shirt, BedDouble, GraduationCap, HeartPulse, Sprout, Zap,
+  ShoppingCart, Landmark, Scissors, Ticket, HardHat, ShieldCheck,
+} from 'lucide-react';
+
+/**
+ * SECTION — THE BUSINESSES ON iSMART
+ *
+ * Three rows of small business cards drifting horizontally, alternating
+ * direction, with the type held still and centred above them. Motion is
+ * CSS-only (no JS, no canvas) and pauses on hover.
+ *
+ * Photos are a drop-in: anything placed in public/businesses/ is picked up at
+ * build time and distributed across the rows. Remaining slots fall back to
+ * designed category tiles, so the composition is complete either way.
+ */
+
+const ROWS = 3;
+const PHOTO_DIR = path.join(process.cwd(), 'public', 'businesses');
+const PHOTO_EXT = /\.(jpe?g|png|webp|avif)$/i;
+
+const photos = fs.existsSync(PHOTO_DIR)
+  ? fs.readdirSync(PHOTO_DIR).filter((f) => PHOTO_EXT.test(f)).sort()
+  : [];
+
+// Filename -> readable alt text: "accra-fabric-stall.jpg" -> "Accra fabric stall"
+const toAlt = (file: string) => {
+  const words = file.replace(PHOTO_EXT, '').replace(/[-_]+/g, ' ').trim();
+  return words.charAt(0).toUpperCase() + words.slice(1);
+};
+
+// Merchant categories iSmart actually serves. Emerald and bronze appear
+// sparingly so the rows stay graphite-dominant and premium.
+const tiles = [
+  { label: 'Retail & Supermarkets', Icon: Store,           tone: 'emerald'  },
+  { label: 'Fuel & Energy',         Icon: Fuel,            tone: 'graphite' },
+  { label: 'Restaurants',           Icon: UtensilsCrossed, tone: 'graphite' },
+  { label: 'Pharmacies',            Icon: Pill,            tone: 'bronze'   },
+  { label: 'Transport & Logistics', Icon: Truck,           tone: 'graphite' },
+  { label: 'Telecom & Airtime',     Icon: Smartphone,      tone: 'graphite' },
+  { label: 'Fashion & Apparel',     Icon: Shirt,           tone: 'graphite' },
+  { label: 'Hotels & Hospitality',  Icon: BedDouble,       tone: 'emerald'  },
+  { label: 'Education',             Icon: GraduationCap,   tone: 'graphite' },
+  { label: 'Healthcare',            Icon: HeartPulse,      tone: 'graphite' },
+  { label: 'Agriculture',           Icon: Sprout,          tone: 'graphite' },
+  { label: 'Utilities & Bills',     Icon: Zap,             tone: 'bronze'   },
+  { label: 'E-commerce',            Icon: ShoppingCart,    tone: 'graphite' },
+  { label: 'Banks & MFIs',          Icon: Landmark,        tone: 'graphite' },
+  { label: 'Salons & Services',     Icon: Scissors,        tone: 'graphite' },
+  { label: 'Events & Ticketing',    Icon: Ticket,          tone: 'emerald'  },
+  { label: 'Construction',          Icon: HardHat,         tone: 'graphite' },
+  { label: 'Insurance',             Icon: ShieldCheck,     tone: 'graphite' },
+];
+
+type Card =
+  | { kind: 'photo'; src: string; alt: string }
+  | { kind: 'tile'; label: string; Icon: any; tone: string };
+
+const photoCards: Card[] = photos.map((f) => ({
+  kind: 'photo', src: `/businesses/${encodeURIComponent(f)}`, alt: toAlt(f),
+}));
+const tileCards: Card[] = tiles.map((t) => ({ kind: 'tile', ...t }));
+
+// Photos lead each row, then tiles fill. Dealing round-robin keeps real
+// photography spread evenly rather than clumped into row one.
+const rows: Card[][] = Array.from({ length: ROWS }, () => []);
+[...photoCards, ...tileCards].forEach((card, i) => rows[i % ROWS].push(card));
+
+// Per-row pacing. Slow, and each row differs so they never march in lockstep.
+const rowConfig = [
+  { duration: 68, reverse: false },
+  { duration: 84, reverse: true  },
+  { duration: 76, reverse: false },
+];
+
+const toneClass: Record<string, string> = {
+  emerald:  'tile-emerald',
+  bronze:   'tile-bronze',
+  graphite: 'tile-graphite',
+};
+---
+
+<section
+  id="businesses"
+  data-nav-theme="dark"
+  class="surface-graphite grain relative isolate overflow-hidden py-24 md:py-32"
+>
+  {/* ================= HEADER — held still above the motion ================= */}
+  <div class="relative z-10 mx-auto mb-16 flex max-w-3xl flex-col items-center px-6 text-center md:mb-20">
+    <div data-reveal="fade" class="mb-6 flex items-center gap-3">
+      <span class="h-px w-8 bg-gradient-to-r from-transparent to-bronze-500"></span>
+      <span class="eyebrow text-bronze-500">Powering African Business</span>
+      <span class="h-px w-8 bg-gradient-to-l from-transparent to-bronze-500"></span>
+    </div>
+
+    <h2
+      data-reveal
+      style="--reveal-delay:80ms"
+      class="font-display text-[clamp(2rem,4.6vw,3.75rem)] font-extrabold leading-[1.02] tracking-[-0.03em] text-metal"
+    >
+      The businesses moving<br class="hidden sm:block" /> value with iSmart.
+    </h2>
+
+    <p
+      data-reveal
+      style="--reveal-delay:160ms"
+      class="mt-6 max-w-[58ch] text-base leading-relaxed text-silver-400 md:text-lg"
+    >
+      From market stalls to national retail chains, thousands of merchants across
+      Africa accept cards, mobile money, bank transfers and QR payments through a
+      single iSmartPay integration — the PSP built on iSmart infrastructure.
+    </p>
+  </div>
+
+  {/* ================= THREE DRIFTING ROWS ================= */}
+  <div class="marquee-viewport relative z-10 flex flex-col gap-4 md:gap-5">
+    {rows.map((cards, rowIndex) => {
+      const { duration, reverse } = rowConfig[rowIndex];
+      return (
+        <div class="marquee-mask overflow-hidden">
+          <div
+            class:list={['marquee-track', reverse && 'is-reverse']}
+            style={`--marquee-duration:${duration}s`}
+          >
+            {/* Track is rendered twice so the loop closes seamlessly. */}
+            {[0, 1].map((pass) =>
+              cards.map((card) => (
+                <div class="card" aria-hidden={pass === 1 ? 'true' : undefined}>
+                  {card.kind === 'photo' ? (
+                    <img
+                      src={card.src}
+                      alt={pass === 1 ? '' : card.alt}
+                      loading="lazy"
+                      decoding="async"
+                      class="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      class:list={['tile', toneClass[card.tone]]}
+                    >
+                      <card.Icon className="h-6 w-6 md:h-7 md:w-7" strokeWidth={1.4} />
+                      <span class="tile-label">{card.label}</span>
+                    </div>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  {/* ================= CTA ================= */}
+  <div class="relative z-10 mt-16 flex justify-center px-6 md:mt-20">
+    <a
+      data-reveal="fade"
+      href="https://www.pay.ismartghana.com"
+      class="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-emerald-700 px-8 py-4 font-display text-sm font-semibold text-white transition-all duration-500 hover:bg-emerald-600 hover:shadow-[0_0_44px_-8px_rgba(0,161,132,0.55)]"
+    >
+      <span
+        class="pointer-events-none absolute inset-y-0 -left-full w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-bronze-400/30 to-transparent transition-all duration-700 group-hover:left-[150%]"
+      ></span>
+      Explore iSmartPay
+      <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
+    </a>
+  </div>
+</section>
+
+<style>
+  /* Rows dissolve at both edges so cards enter and leave without a hard cut. */
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 1rem;
+    padding-inline: 0.5rem;
+    will-change: transform;
+    animation: marquee-left var(--marquee-duration, 70s) linear infinite;
+  }
+
+  .marquee-track.is-reverse {
+    animation-name: marquee-right;
+  }
+
+  /* Translating by half the doubled track lands exactly on the seam. */
+  @keyframes marquee-left {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(calc(-50% - 0.5rem), 0, 0); }
+  }
+
+  @keyframes marquee-right {
+    from { transform: translate3d(calc(-50% - 0.5rem), 0, 0); }
+    to   { transform: translate3d(0, 0, 0); }
+  }
+
+  /* Let the viewer study a row without chasing it. */
+  .marquee-viewport:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .card {
+    position: relative;
+    flex: 0 0 auto;
+    width: 150px;
+    height: 108px;
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: var(--color-graphite-850);
+    transition: border-color 0.5s ease, transform 0.5s ease;
+  }
+
+  @media (min-width: 768px) {
+    .card { width: 190px; height: 134px; }
+    .marquee-track { gap: 1.25rem; }
+    @keyframes marquee-left {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(calc(-50% - 0.625rem), 0, 0); }
+    }
+    @keyframes marquee-right {
+      from { transform: translate3d(calc(-50% - 0.625rem), 0, 0); }
+      to   { transform: translate3d(0, 0, 0); }
+    }
+  }
+
+  /* Photos sit back until hovered, so no single card shouts over the rest. */
+  .card img {
+    filter: saturate(0.7) brightness(0.82);
+    transition: filter 0.6s ease, transform 0.6s ease;
+  }
+
+  .card:hover {
+    border-color: rgba(214, 142, 99, 0.55);
+    transform: translateY(-3px);
+  }
+
+  .card:hover img {
+    filter: saturate(1) brightness(1);
+    transform: scale(1.05);
+  }
+
+  /* ---- Designed category tiles (used wherever a photo is not supplied) ---- */
+  .tile {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.875rem 0.9375rem;
+  }
+
+  .tile-label {
+    font-family: var(--font-display, inherit);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  @media (min-width: 768px) {
+    .tile { padding: 1rem 1.125rem; }
+    .tile-label { font-size: 0.75rem; }
+  }
+
+  .tile-graphite {
+    background: linear-gradient(150deg, #232529 0%, #17181B 100%);
+    color: var(--color-silver-300);
+  }
+  .tile-graphite svg { color: var(--color-silver-500); }
+
+  .tile-emerald {
+    background: linear-gradient(150deg, #005245 0%, #00231D 100%);
+    color: var(--color-emerald-100);
+  }
+  .tile-emerald svg { color: var(--color-emerald-300); }
+
+  .tile-bronze {
+    background: linear-gradient(150deg, #A96541 0%, #4A2C1C 100%);
+    color: var(--color-bronze-100);
+  }
+  .tile-bronze svg { color: var(--color-bronze-300); }
+
+  /* Hairline top highlight reads as a lit metal edge. */
+  .tile::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.18), transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .marquee-mask { overflow-x: auto; scrollbar-width: none; }
+    .marquee-mask::-webkit-scrollbar { display: none; }
+    .card:hover { transform: none; }
+  }
+</style>

@@ -1,0 +1,208 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { ArrowRight } from 'lucide-react';
+
+/**
+ * ABOUT iSMART INTERNATIONAL — HERO
+ *
+ * A light hero, deliberately. The supplied photograph is bright and airy
+ * (measured median luminance 152), so a graphite or black ground would leave it
+ * sitting on the page like a lightbox rather than belonging to it. Warm white
+ * also gives the site the light/dark rhythm the brand system asks for: graphite
+ * home, black business, paper here.
+ *
+ * Type holds the left. The photograph runs full height on the right and bleeds
+ * off the edge, so it reads as a window into a working day rather than a framed
+ * picture placed on a page.
+ *
+ * Layout lives in plain CSS, not arbitrary utilities — the two-column geometry
+ * is load-bearing, and it should not depend on a class being scanned.
+ */
+---
+
+<MainLayout
+  title="About iSmart International | Digital financial infrastructure for Africa"
+  description="iSmart International engineers the payment, connectivity and technology infrastructure behind businesses across Africa — from a single market stall to a national retailer."
+>
+  <section data-nav-theme="dark" class="about-hero">
+    {/* ================= FULL-BLEED PHOTOGRAPH ================= */}
+    <img
+      src="/about-hero-1600.webp"
+      srcset="/about-hero-900.webp 900w, /about-hero-1600.webp 1600w"
+      sizes="100vw"
+      alt="A business owner working at her laptop in her studio"
+      width="1600"
+      height="1066"
+      fetchpriority="high"
+      decoding="async"
+      class="about-photo"
+    />
+
+    {/* Scrims. Measured, not guessed: the copy zone of this photograph runs to
+        255 luminance in places, so white type over it unscrimmed sits at
+        2.9:1. These hold it at 7.2:1 while leaving the subject untouched. */}
+    <div class="about-scrim" aria-hidden="true"></div>
+    <div class="about-scrim-top" aria-hidden="true"></div>
+
+    {/* ================= COPY ================= */}
+    <div class="about-copy">
+      <span data-reveal="fade" class="about-eyebrow">About us</span>
+
+      <h1 data-reveal style="--reveal-delay:80ms" class="about-title font-display">
+        We build what African commerce runs on.
+      </h1>
+
+      <p data-reveal style="--reveal-delay:170ms" class="about-lede">
+        iSmart International engineers the payment and technology infrastructure
+        behind businesses across the continent.
+      </p>
+
+      <div data-reveal style="--reveal-delay:250ms" class="about-actions">
+        <a href="/business" class="about-cta">What we build</a>
+        <a href="https://www.pay.ismartghana.com" class="about-link">Go to iSmartPay</a>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .about-hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    min-height: 100svh;
+    overflow: hidden;
+    background-color: #0B0D0F;
+    color: #fff;
+  }
+
+  .about-photo {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    /* Holds the subject in frame as the crop tightens on tall viewports,
+       and keeps the calmer left side under the copy. */
+    object-position: 62% center;
+  }
+
+  /* Left-weighted, so the copy has a ground while the subject stays clear. */
+  .about-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to right,
+      rgba(8, 10, 12, 0.8) 0%,
+      rgba(8, 10, 12, 0.62) 52%,
+      rgba(8, 10, 12, 0) 82%
+    );
+  }
+
+  /* The header sits over a band of this photograph that runs to 245 luminance,
+     so the nav gets its own falloff rather than relying on the one above. */
+  .about-scrim-top {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: -1;
+    height: 26%;
+    background: linear-gradient(to bottom, rgba(8, 10, 12, 0.55), transparent);
+  }
+
+  /* ─── Copy ─── */
+  .about-copy {
+    position: relative;
+    width: 100%;
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 8rem 1.5rem 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .about-copy { padding: 8rem 2.5rem 5rem; }
+  }
+
+  @media (min-width: 1280px) {
+    .about-copy { padding-left: 4rem; }
+  }
+
+  .about-eyebrow {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .about-title {
+    margin-top: 1.25rem;
+    max-width: 18ch;
+    /* Smaller than a landing headline: on a photograph the type is a caption
+       to the image, not a billboard competing with it. */
+    font-size: clamp(2.25rem, 3.9vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.032em;
+    color: #fff;
+    text-wrap: balance;
+  }
+
+  .about-lede {
+    margin-top: 1.5rem;
+    max-width: 46ch;
+    font-size: clamp(1rem, 1.05vw, 1.125rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .about-actions {
+    margin-top: 2.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.75rem;
+  }
+
+  .about-cta {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: #fff;
+    padding: 0.9375rem 2rem;
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    transition: background 0.4s var(--ease-brand), transform 0.4s var(--ease-brand);
+  }
+
+  .about-cta:hover { background: rgba(255, 255, 255, 0.88); }
+
+  .about-link {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    padding-bottom: 2px;
+    transition: color 0.35s ease, border-color 0.35s ease;
+  }
+
+  .about-link:hover { color: #fff; border-color: #fff; }
+
+  /* Phones: the crop gets tight, so the scrim wraps the whole frame instead of
+     leaning left, and the copy sits lower in it. */
+  @media (max-width: 767px) {
+    .about-scrim {
+      background: linear-gradient(
+        to bottom,
+        rgba(8, 10, 12, 0.55) 0%,
+        rgba(8, 10, 12, 0.35) 35%,
+        rgba(8, 10, 12, 0.82) 100%
+      );
+    }
+    .about-photo { object-position: 68% center; }
+  }
+</style>

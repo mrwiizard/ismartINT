@@ -1,0 +1,63 @@
+---
+/**
+ * Official iSmart International logo.
+ *
+ * Renders the supplied artwork as-is — never redrawn, re-proportioned or
+ * reconstructed. Two marks are available:
+ *
+ *   wordmark  public/new ismart logo.png      the full lockup
+ *   icon      public/ismart-icon.png          the flat square symbol
+ *   circuit   public/ismart-circuit-mark.webp  the metallic circuit-wave render
+ *
+ * The wordmark and icon are white artwork on transparency, so `tone="dark"`
+ * applies a CSS filter for placement on light surfaces — the pixels themselves
+ * are untouched. The circuit mark is a full-colour metallic render and is only
+ * ever placed on dark surfaces, so it is never filtered.
+ */
+interface Props {
+  /** Which supplied mark to render. */
+  mark?: 'wordmark' | 'icon' | 'circuit';
+  /** Rendered height in px; width follows the artwork's own aspect ratio. */
+  height?: number;
+  /** `light` = artwork as supplied (white). `dark` = for light backgrounds. */
+  tone?: 'light' | 'dark';
+  class?: string;
+  loading?: 'eager' | 'lazy';
+  /** Decorative duplicates (e.g. a cross-fading pair) pass alt="". */
+  alt?: string;
+}
+
+const {
+  mark = 'wordmark',
+  height = 30,
+  tone = 'light',
+  class: className = '',
+  loading = 'eager',
+  alt = 'iSmart International',
+} = Astro.props;
+
+// Intrinsic dimensions of each supplied file.
+const ART = {
+  wordmark: { src: '/new ismart logo.png',     w: 2349, h: 626 },
+  icon:     { src: '/ismart-icon.png',         w: 604,  h: 604 },
+  // Cropped to its own artwork so it optically fills the slot it is given.
+  circuit:  { src: '/ismart-circuit-mark.webp', w: 401,  h: 300 },
+}[mark];
+
+const width = Math.round((height * ART.w) / ART.h);
+
+// brightness(0) drives the white artwork to solid graphite for light surfaces.
+const filter = tone === 'dark' ? 'brightness(0) saturate(100%) opacity(0.92)' : 'none';
+---
+
+<img
+  src={ART.src}
+  width={width}
+  height={height}
+  alt={alt}
+  aria-hidden={alt === '' ? 'true' : undefined}
+  loading={loading}
+  decoding="async"
+  class={`logo-img ${className}`}
+  style={`height:${height}px;width:auto;display:block;filter:${filter}`}
+/>

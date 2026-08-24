@@ -1,0 +1,304 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Button from "../components/Button.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Hero from "../components/Hero.astro";
+import BusinessMarquee from "../components/BusinessMarquee.astro";
+import BrandStatement from "../islands/BrandStatement";
+import EcosystemPanels from "../islands/EcosystemPanels";
+import AfricaMapVisual from "../islands/AfricaMapVisual";
+import PaymentShowcase from "../islands/PaymentShowcase";
+import DeveloperConsole from "../islands/DeveloperConsole";
+import Logo from "../components/Logo.astro";
+import { ArrowRight, Shield, ShieldCheck, Zap, Globe, Cpu } from "lucide-react";
+---
+
+<MainLayout
+  title="iSmart International | Digital Financial Infrastructure Platform"
+  description="iSmart International builds digital financial infrastructure that helps businesses and people move value seamlessly across Africa and beyond."
+>
+  {/* SECTION 01 — HERO */}
+  <Hero />
+
+  {/* 2. BIG BRAND STATEMENT */}
+  <section data-nav-theme="light">
+    <BrandStatement client:only="react" />
+  </section>
+
+  {/* 3. AFRICA SECTION */}
+  <section data-nav-theme="dark">
+    <AfricaMapVisual client:only="react" />
+  </section>
+
+  {/* 4. THE iSMART ECOSYSTEM */}
+  <section
+    id="ecosystem"
+    data-nav-theme="dark"
+    class="bg-graphite-dark border-b border-graphite-border/30 text-white"
+  >
+    <EcosystemPanels client:only="react" />
+  </section>
+
+  {/* 4b. THE BUSINESSES ON iSMART */}
+  <BusinessMarquee />
+
+  {/* 5. PRODUCT STORY & FLOATING DEVICE */}
+  <section data-nav-theme="light">
+    <PaymentShowcase client:only="react" />
+  </section>
+
+  {/* 6. INFRASTRUCTURE & CREDIBILITY */}
+  <section
+    data-nav-theme="dark"
+    class="bg-graphite-dark py-24 md:py-32 border-b border-graphite-border/30 relative overflow-hidden text-white"
+  >
+    <div
+      class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,109,91,0.02),transparent_60%)] pointer-events-none"
+    >
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* Left header column */}
+        <div class="lg:col-span-4 lg:sticky lg:top-32">
+          <SectionHeading
+            theme="dark"
+            tag="Infrastructure Specs"
+            title="Built for scale. Designed for trust."
+            description="Our financial operating network is engineered to bypass legacy latency routes, providing robust transaction routing for high-volume enterprises."
+            tagColor="emerald"
+          />
+        </div>
+
+        {/* Right cards column */}
+        <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Card 1: Security */}
+          <div
+            class="bg-graphite-light/40 p-8 rounded-3xl flex flex-col gap-4 border border-graphite-border/30 hover:border-brand-emerald/40 transition-all duration-300 group"
+          >
+            <div
+              class="text-brand-emerald group-hover:scale-110 transition-transform duration-300"
+            >
+              <Shield class="h-6 w-6" />
+            </div>
+            <h3 class="text-lg font-bold text-white">Security</h3>
+            <p class="text-sm text-silver-muted leading-relaxed">
+              Equipped with end-to-end envelope encryption, PCI-DSS Level 1
+              compliance structures, and real-time transaction anomalies
+              monitoring databases.
+            </p>
+          </div>
+
+          {/* Card 2: Speed */}
+          <div
+            class="bg-graphite-light/40 p-8 rounded-3xl flex flex-col gap-4 border border-graphite-border/30 hover:border-brand-bronze/40 transition-all duration-300 group"
+          >
+            <div
+              class="text-brand-bronze group-hover:scale-110 transition-transform duration-300"
+            >
+              <Zap class="h-6 w-6" />
+            </div>
+            <h3 class="text-lg font-bold text-white">Speed</h3>
+            <p class="text-sm text-silver-muted leading-relaxed">
+              Engineered with transactional microservices that complete routing
+              sequences in under 150ms. Zero execution wait times.
+            </p>
+          </div>
+
+          {/* Card 3: Connectivity */}
+          <div
+            class="bg-graphite-light/40 p-8 rounded-3xl flex flex-col gap-4 border border-graphite-border/30 hover:border-brand-emerald/40 transition-all duration-300 group"
+          >
+            <div
+              class="text-brand-emerald group-hover:scale-110 transition-transform duration-300"
+            >
+              <Globe class="h-6 w-6" />
+            </div>
+            <h3 class="text-lg font-bold text-white">Connected Ecosystems</h3>
+            <p class="text-sm text-silver-muted leading-relaxed">
+              Unified connections between mobile money wallets, card clearings,
+              and regional bank APIs. Absolute horizontal cross-compatibility.
+            </p>
+          </div>
+
+          {/* Card 4: Reach */}
+          <div
+            class="bg-graphite-light/40 p-8 rounded-3xl flex flex-col gap-4 border border-graphite-border/30 hover:border-white/15 transition-all duration-300 group"
+          >
+            <div
+              class="text-white group-hover:scale-110 transition-transform duration-300"
+            >
+              <Cpu class="h-6 w-6" />
+            </div>
+            <h3 class="text-lg font-bold text-white">Reach</h3>
+            <p class="text-sm text-silver-muted leading-relaxed">
+              Specifically optimized for high-growth emerging economies,
+              allowing seamless expansion across direct operational markets.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 7. DEVELOPER SECTION */}
+  <section data-nav-theme="dark">
+    <DeveloperConsole client:only="react" />
+  </section>
+
+  {/* 8. TRUST SECTION */}
+  <section
+    data-nav-theme="light"
+    class="bg-white py-24 md:py-32 border-b border-neutral-100 text-text-dark"
+  >
+    <div
+      class="max-w-7xl mx-auto px-6 md:px-12 text-center flex flex-col items-center"
+    >
+      <SectionHeading
+        theme="light"
+        tag="Trust Core"
+        title="Financial infrastructure you can trust."
+        description="We handle high-volume institutional movements. Security and redundancy are not features—they are the foundation of our engineering architecture."
+        tagColor="emerald"
+        align="center"
+      />
+
+      <div
+        class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 w-full mt-16 max-w-5xl"
+      >
+        <div class="flex flex-col items-center gap-2">
+          <div
+            class="text-3xl md:text-4xl font-display font-extrabold text-brand-emerald"
+          >
+            99.99%
+          </div>
+          <div
+            class="text-xs uppercase tracking-widest text-text-muted font-semibold mt-1"
+          >
+            Historical Uptime
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div
+            class="text-3xl md:text-4xl font-display font-extrabold text-brand-emerald"
+          >
+            PCI-DSS
+          </div>
+          <div
+            class="text-xs uppercase tracking-widest text-text-muted font-semibold mt-1"
+          >
+            Level 1 Certified
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div
+            class="text-3xl md:text-4xl font-display font-extrabold text-brand-emerald"
+          >
+            24/7/365
+          </div>
+          <div
+            class="text-xs uppercase tracking-widest text-text-muted font-semibold mt-1"
+          >
+            Automated Failover
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div
+            class="text-3xl md:text-4xl font-display font-extrabold text-brand-emerald"
+          >
+            100M+
+          </div>
+          <div
+            class="text-xs uppercase tracking-widest text-text-muted font-semibold mt-1"
+          >
+            API requests daily
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 9. FINAL CINEMATIC CTA */}
+  <section
+    data-nav-theme="dark"
+    class="emerald-stage relative isolate flex items-center justify-center overflow-hidden border-b border-white/10 bg-emerald-950 py-32 text-white md:py-44"
+  >
+    {/* Emerald flow field. Generated from the brand ramp, so the primary
+        #006D5B sits mid-tone and the highlights bloom to emerald-400. */}
+    <img
+      src="/emerald-flow-1920.webp"
+      srcset="/emerald-flow-960.webp 960w, /emerald-flow-1920.webp 1920w"
+      sizes="100vw"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+      class="emerald-flow pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover"
+    />
+
+    {/* Readability scrim — deepest where the type sits, releasing to the edges
+        so the flow stays visible around it. */}
+    <div
+      class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_68%_62%_at_50%_50%,rgba(3,10,9,0.90)_0%,rgba(3,10,9,0.62)_55%,rgba(3,10,9,0.15)_100%)]"
+    >
+    </div>
+
+    {/* Vignette: settles the top and bottom edges into the neighbouring sections. */}
+    <div
+      class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(4,11,10,0.8)_0%,transparent_28%,transparent_72%,rgba(4,11,10,0.85)_100%)]"
+    >
+    </div>
+
+    {/* Bronze horizon — the one warm note against all that emerald. */}
+    <div
+      class="pointer-events-none absolute left-0 top-1/2 h-px w-full bg-gradient-to-r from-transparent via-bronze-500/45 to-transparent"
+    >
+    </div>
+
+    <div
+      class="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-8 px-6 text-center"
+    >
+      <h2
+        class="font-display text-5xl font-black leading-[1.05] tracking-tight text-gradient-silver-light md:text-7xl"
+      >
+        The future<br />is already moving.
+      </h2>
+      <p class="font-display text-lg tracking-wide text-emerald-100/90 md:text-xl">
+        Build it with iSmart.
+      </p>
+
+   
+
+      <Button
+        href="/partners"
+        variant="white"
+        size="lg"
+        class="group mt-4 font-bold"
+      >
+        Partner With Us
+        <ArrowRight
+          class="h-4 w-4 ml-2 group-hover:translate-x-1.5 transition-transform duration-300"
+        />
+      </Button>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  /* The flow breathes rather than animates: 44s, alternating, sub-pixel pace.
+     Scaled up front so the drift never exposes an edge. */
+  .emerald-flow {
+    transform: scale(1.08);
+    animation: emerald-drift 44s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  @keyframes emerald-drift {
+    from { transform: scale(1.08) translate3d(-1.2%, 0.8%, 0); }
+    to   { transform: scale(1.14) translate3d(1.2%, -0.8%, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .emerald-flow { animation: none; transform: scale(1.08); }
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+/**
+ * The iSmart wave, used as a section transition.
+ *
+ * The brandmark comes from money forming a wave, so the same curve carries
+ * every change of surface on the page rather than sections butting together.
+ * It is a single path, drawn once — a motif, not an effect.
+ *
+ * `from` is the colour of the section above, `to` the section below. The wave
+ * is the boundary between them, so it needs both.
+ */
+interface Props {
+  /** Fill of the section arriving below the wave. */
+  to: string;
+  /** Hairline accent riding the crest: bronze or emerald. */
+  accent?: 'bronze' | 'emerald' | 'none';
+  /** Flip so the crest rises instead of dips. */
+  flip?: boolean;
+  class?: string;
+}
+
+const { to, accent = 'bronze', flip = false, class: className = '' } = Astro.props;
+
+const stroke = {
+  bronze: 'var(--color-bronze-600)',
+  emerald: 'var(--color-emerald-500)',
+  none: 'transparent',
+}[accent];
+
+// One asymmetric curve — a wave that has somewhere to go, not a symmetrical arc.
+const PATH = 'M0,52 C240,4 420,96 720,64 C1020,32 1200,8 1440,44 L1440,120 L0,120 Z';
+const CREST = 'M0,52 C240,4 420,96 720,64 C1020,32 1200,8 1440,44';
+---
+
+<div class:list={['wave-divider', flip && 'is-flipped', className]} aria-hidden="true">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
+    <path d={PATH} fill={to} />
+    {accent !== 'none' && (
+      <path
+        d={CREST}
+        fill="none"
+        stroke={stroke}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        opacity="0.5"
+      />
+    )}
+  </svg>
+</div>
+
+<style>
+  .wave-divider {
+    position: relative;
+    z-index: 2;
+    display: block;
+    line-height: 0;
+    /* Pulled up so the wave overlaps the section above rather than adding a
+       band of its own — the surfaces meet along the curve. */
+    margin-bottom: -1px;
+  }
+
+  .wave-divider svg {
+    display: block;
+    width: 100%;
+    height: clamp(48px, 6vw, 104px);
+  }
+
+  .wave-divider.is-flipped svg {
+    transform: scaleY(-1);
+  }
+</style>

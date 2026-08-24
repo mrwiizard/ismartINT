@@ -1,0 +1,21 @@
+{
+  "name": "iSmart International",
+  "short_name": "iSmart",
+  "description": "Digital financial infrastructure for Africa.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0E10",
+  "theme_color": "#006D5B",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

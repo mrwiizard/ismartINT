@@ -1,0 +1,472 @@
+@import "tailwindcss";
+
+/* ============================================================
+   iSMART INTERNATIONAL — BRAND SYSTEM
+   Emerald (primary) · Bronze (premium accent) · Graphite (depth)
+   Derived from the official iSmart International brand guide.
+   ============================================================ */
+
+@theme {
+  /* --- Emerald: growth, trust, digital transformation --- */
+  --color-emerald-950: #00231D;
+  --color-emerald-900: #003A30;
+  --color-emerald-800: #005245;
+  --color-emerald-700: #006D5B; /* PRIMARY */
+  --color-emerald-600: #00876F;
+  --color-emerald-500: #00A184;
+  --color-emerald-400: #21BE9F;
+  --color-emerald-300: #6FD8C1;
+  --color-emerald-100: #D3F0E8;
+  --color-emerald-50:  #EDF8F5;
+
+  /* --- Bronze: metallic highlight, premium edge, "live" state --- */
+  /* Sampled from the lit face of the metal object in the business film, so
+     accent type set beside that artwork carries the exact bronze it shows
+     rather than an approximation of it. 7.50:1 on black. */
+  --color-bronze-lit: #C09078;
+  --color-bronze-900: #653A25; /* darkest bronze — clears AA on light metal */
+  --color-bronze-800: #8E5335;
+  --color-bronze-700: #A96541;
+  --color-bronze-600: #C57950; /* SECONDARY */
+  --color-bronze-500: #D68E63;
+  --color-bronze-400: #E5A87F;
+  --color-bronze-300: #F0C4A5;
+  --color-bronze-100: #F9E7D9;
+
+  /* --- Graphite: contrast, infrastructure, cinematic depth --- */
+  --color-graphite-950: #0D0E10;
+  --color-graphite-900: #141518;
+  --color-graphite-850: #1A1B1E; /* base dark surface */
+  --color-graphite-800: #232529;
+  --color-graphite-700: #2E3136;
+  --color-graphite-600: #3A3E44;
+
+  /* --- Silver / neutral: clarity, precision, metal --- */
+  --color-silver-100: #F2F3F5;
+  --color-silver-200: #E3E5E9;
+  --color-silver-300: #C9CDD3;
+  --color-silver-400: #A7ACB4;
+  --color-silver-500: #8B9096;
+  --color-silver-600: #6B7076;
+
+  /* --- Light system: breathing room --- */
+  --color-paper:      #FFFFFF;
+  --color-paper-warm: #FAFAF8;
+  --color-paper-cool: #F5F6F7;
+
+  /* --- Ink --- */
+  --color-ink:       #16171A;
+  --color-ink-muted: #55595F;
+  --color-ink-faint: #8A8F96;
+
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* --- LEGACY ALIASES -------------------------------------------------
+     Sections 02–10 have not been rebuilt yet and still reference the old
+     token names. These keep them rendering correctly, remapped onto the new
+     brand palette. Delete each alias as its section is redesigned. */
+  --color-brand-emerald: #006D5B;
+  --color-brand-emerald-light: #00876F;
+  --color-brand-bronze: #C57950;
+  --color-off-white: #FAFAF8;
+  --color-dark-bg: #0D0E10;
+  --color-graphite-dark: #141518;
+  --color-graphite-light: #232529;
+  --color-graphite-border: #2E3136;
+  --color-silver-bright: #E3E5E9;
+  --color-silver-muted: #8B9096;
+  --color-text-dark: #16171A;
+  --color-text-muted: #55595F;
+  --animate-pulse-slow: breathe 7s ease-in-out infinite;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+html {
+  scroll-behavior: initial; /* Lenis owns smooth scrolling */
+  background-color: var(--color-graphite-950);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  /* `clip`, not `hidden`: hidden turns this into a scroll container, which
+     silently breaks `position: sticky` for every descendant. `clip` clips
+     without creating one. */
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-paper-warm);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+::selection {
+  background: var(--color-emerald-700);
+  color: #fff;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--color-graphite-900); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite-600);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-emerald-700); }
+
+:focus-visible {
+  outline: 2px solid var(--color-emerald-500);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   PREMIUM SURFACES
+   The reference language: deep graphite, brushed metal, bronze
+   as the "live / energised" state. Every effect is subtractive
+   and slow — nothing neon, nothing bouncing.
+   ============================================================ */
+
+/* Cinematic graphite ground with a soft top-light, as in the brand poster. */
+.surface-graphite {
+  background:
+    radial-gradient(120% 80% at 50% -20%, #33363C 0%, transparent 55%),
+    radial-gradient(90% 60% at 15% 110%, rgba(0, 109, 91, 0.20) 0%, transparent 60%),
+    linear-gradient(180deg, #17181B 0%, #101114 55%, #0D0E10 100%);
+}
+
+/* Brushed titanium plate.
+   Generated rather than bitmapped: the supplied silver-titanium artwork is only
+   591px wide, so stretching it across a full panel would go soft. Layered
+   gradients stay razor-sharp at any size and cost nothing to download.
+     1. broad anisotropic sheen — the wide highlights that read as rolled metal
+     2. fine brush grain — the directional micro-scratches
+     3. a bronze breath, so the plate belongs to the brand rather than reading
+        as neutral grey
+     4. the base plate gradient */
+.surface-titanium {
+  background-color: #C9CDD3;
+  background-image:
+    linear-gradient(
+      104deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.55) 11%,
+      rgba(255, 255, 255, 0) 24%,
+      rgba(0, 0, 0, 0.06) 37%,
+      rgba(255, 255, 255, 0.42) 51%,
+      rgba(0, 0, 0, 0.05) 64%,
+      rgba(255, 255, 255, 0.5) 79%,
+      rgba(0, 0, 0, 0.07) 100%
+    ),
+    repeating-linear-gradient(
+      104deg,
+      rgba(255, 255, 255, 0.14) 0px,
+      rgba(255, 255, 255, 0.14) 1px,
+      rgba(0, 0, 0, 0.045) 1px,
+      rgba(0, 0, 0, 0.045) 2px,
+      rgba(255, 255, 255, 0) 2px,
+      rgba(255, 255, 255, 0) 4px
+    ),
+    radial-gradient(80% 120% at 85% 15%, rgba(197, 121, 80, 0.16) 0%, transparent 60%),
+    linear-gradient(180deg, #E6E8EC 0%, #B7BCC4 56%, #D5D9DE 100%);
+}
+
+/* ─── Bento tile ───
+   A frosted panel floated over the titanium plate. Deliberately translucent:
+   the brushed metal still reads through it, so the tiles feel set into the
+   surface rather than pasted on top of it. */
+.bento {
+  position: relative;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.74);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 18px 40px -22px rgba(28, 32, 38, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bento:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 26px 52px -22px rgba(28, 32, 38, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.bento-title {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-graphite-950);
+}
+
+@media (min-width: 768px) {
+  .bento { padding: 1.5rem; }
+  .bento-title { font-size: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento,
+  .bento:hover { transform: none; transition: none; }
+}
+
+/* Soft inner shading so the plate has depth instead of sitting flat. */
+.surface-titanium::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(90% 70% at 50% 50%, transparent 40%, rgba(70, 76, 84, 0.22) 100%);
+}
+
+/* Emerald ground for the brand-forward sections. */
+.surface-emerald {
+  background:
+    radial-gradient(100% 70% at 50% -10%, rgba(255, 255, 255, 0.10) 0%, transparent 60%),
+    radial-gradient(80% 60% at 85% 110%, rgba(197, 121, 80, 0.18) 0%, transparent 60%),
+    linear-gradient(180deg, #00775F 0%, #005A4A 60%, #00463A 100%);
+}
+
+/* Light ground with the faintest warm cast — never flat #fff. */
+.surface-light {
+  background:
+    radial-gradient(90% 55% at 50% 0%, #FFFFFF 0%, transparent 60%),
+    linear-gradient(180deg, #FAFAF8 0%, #F4F5F4 100%);
+}
+
+/* Film grain — the single most effective "expensive" cue on dark surfaces. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/brand/grain.png");
+  background-size: 160px 160px;
+  opacity: 0.30;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Brushed-metal panel: light rakes across it, bronze catches the top edge. */
+.metal-panel {
+  position: relative;
+  background:
+    linear-gradient(150deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 35%, rgba(0,0,0,0.10) 100%),
+    linear-gradient(180deg, #232529 0%, #1A1B1E 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 24px 60px -30px rgba(0, 0, 0, 0.9);
+}
+
+/* Hairline bronze top edge — the "premium edge" from the brand guide. */
+.edge-bronze::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-bronze-500), transparent);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.edge-emerald::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-emerald-400), transparent);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Infrastructure grid — reads as engineering, not as decoration. */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 100%);
+}
+
+.grid-lines-light {
+  background-image:
+    linear-gradient(to right, rgba(22,23,26,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22,23,26,0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 100%);
+}
+
+/* ============================================================
+   TYPE TREATMENTS
+   ============================================================ */
+
+/* Polished-metal headline on dark: white core falling to silver. */
+.text-metal {
+  background: linear-gradient(175deg, #FFFFFF 0%, #EDEFF2 40%, #A7ACB4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Graphite headline on light. */
+.text-ink-metal {
+  background: linear-gradient(175deg, #16171A 0%, #2E3136 45%, #55595F 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* The bronze accent phrase — one per headline, never more. */
+.text-bronze-metal {
+  background: linear-gradient(120deg, #E5A87F 0%, #C57950 45%, #A96541 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Flat counterpart to the gradient above: the object's own bronze, unshaded.
+   Used where the type sits beside the artwork and has to match it exactly. */
+.text-bronze-object {
+  color: var(--color-bronze-lit);
+}
+
+.text-emerald-metal {
+  background: linear-gradient(120deg, #21BE9F 0%, #00A184 50%, #006D5B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Technical eyebrow label used across every section. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   SCROLL REVEALS
+   Driven by IntersectionObserver in MainLayout — no library,
+   no layout thrash, and inert under reduced-motion.
+   ============================================================ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 1s var(--ease-brand),
+    transform 1.15s var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal="fade"] { transform: none; }
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 0.75; transform: scale(1.06); }
+}
+
+@keyframes rail-sheen {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(220%); }
+}
+
+.animate-breathe { animation: breathe 7s ease-in-out infinite; }
+
+/* ============================================================
+   LEGACY UTILITIES
+   Same story as the token aliases above — retained so the
+   not-yet-redesigned sections keep rendering. Remove per section.
+   ============================================================ */
+
+.text-gradient-silver {
+  background: linear-gradient(175deg, #16171A 0%, #2E3136 45%, #55595F 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-silver-light {
+  background: linear-gradient(175deg, #FFFFFF 0%, #EDEFF2 40%, #A7ACB4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(120deg, #21BE9F 0%, #00A184 50%, #006D5B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-bronze {
+  background: linear-gradient(120deg, #E5A87F 0%, #C57950 45%, #A96541 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glass-panel {
+  background: rgba(35, 37, 41, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(46, 49, 54, 0.5);
+}
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

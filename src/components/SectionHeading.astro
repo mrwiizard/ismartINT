@@ -1,0 +1,51 @@
+---
+interface Props {
+  tag?: string;
+  title: string;
+  description?: string;
+  tagColor?: 'emerald' | 'bronze' | 'silver';
+  align?: 'left' | 'center';
+  theme?: 'light' | 'dark'; // Contextual theme
+  class?: string;
+}
+
+const {
+  tag,
+  title,
+  description,
+  tagColor = 'emerald',
+  align = 'left',
+  theme = 'light',
+  class: className = '',
+} = Astro.props;
+
+const tagColors = {
+  emerald: 'text-brand-emerald',
+  bronze: 'text-brand-bronze',
+  silver: theme === 'dark' ? 'text-silver-muted' : 'text-text-muted',
+}[tagColor];
+
+const alignment = {
+  left: 'text-left items-start',
+  center: 'text-center items-center mx-auto',
+}[align];
+
+const titleColor = theme === 'dark' ? 'text-gradient-silver-light' : 'text-gradient-silver';
+const descColor = theme === 'dark' ? 'text-silver-muted' : 'text-text-muted';
+---
+
+<div class={`flex flex-col gap-3 ${alignment} ${className}`}>
+  {tag && (
+    <span class={`text-xs font-semibold tracking-[0.25em] uppercase ${tagColors}`}>
+      {tag}
+    </span>
+  )}
+  <h2 class={`text-3xl md:text-4xl lg:text-5xl font-bold font-display leading-[1.1] ${titleColor}`}>
+    {title}
+  </h2>
+  {description && (
+    <p class={`text-base md:text-lg ${descColor} max-w-2xl leading-relaxed mt-2`}>
+      {description}
+    </p>
+  )}
+</div>

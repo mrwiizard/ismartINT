@@ -1,0 +1,753 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import MainLayout from '../layouts/MainLayout.astro';
+import { ArrowRight, ChevronRight, CreditCard, Code2, Wallet, ShieldCheck } from 'lucide-react';
+
+/**
+ * iSMART FOR BUSINESS — HERO
+ *
+ * The supplied film is shot on pure black (measured: edge luminance 0), so the
+ * section ground is pure black too and the footage is feathered rather than
+ * framed. No card, no border, no rounded corner — the video simply emerges out
+ * of the page. Anything else would draw a rectangle around it.
+ *
+ * Type holds the left; the film sits right of centre and bleeds off the right
+ * edge, so it reads as a window into something larger.
+ */
+
+
+// ── Section 02 cards ───────────────────────────────────────────────────────
+// Artwork is a drop-in: anything in public/business-cards/ named 01-*, 02-*,
+// 03-* is matched to its card by the leading number at build time. Empty slots
+// fall back to designed brand art so the row is never half-finished.
+const CARD_DIR = path.join(process.cwd(), 'public', 'business-cards');
+const CARD_EXT = /\.(jpe?g|png|webp|avif)$/i;
+const cardFiles = fs.existsSync(CARD_DIR)
+  ? fs.readdirSync(CARD_DIR).filter((f) => CARD_EXT.test(f)).sort()
+  : [];
+const photoFor = (n: string) =>
+  cardFiles.find((f) => f.startsWith(n));
+
+const cards = [
+  {
+    n: '01',
+    title: 'Take payments any way they come',
+    link: 'Payment acceptance',
+    tone: 'emerald',
+    chip: { label: 'Checkout', sub: 'Live across 7 markets' },
+  },
+  {
+    n: '02',
+    title: 'Build it into your product',
+    link: 'Developer tooling',
+    tone: 'graphite',
+    chip: { label: 'API keys', sub: 'Sandbox ready · today' },
+  },
+  {
+    n: '03',
+    title: 'Know where your money is',
+    link: 'Settlement & reporting',
+    tone: 'bronze',
+    chip: { label: 'Payouts', sub: 'T+1 settlement' },
+  },
+].map((c) => ({ ...c, photo: photoFor(c.n) }));
+
+const offers = [
+  {
+    Icon: CreditCard,
+    title: 'Payment acceptance',
+    desc: 'Cards, mobile money, bank transfer and QR through one integration.',
+  },
+  {
+    Icon: Code2,
+    title: 'Developer tooling',
+    desc: 'REST APIs, SDKs, webhooks and a sandbox you can build against today.',
+  },
+  {
+    Icon: Wallet,
+    title: 'Settlement & reporting',
+    desc: 'T+1 settlement with a live view of every transaction you process.',
+  },
+  {
+    Icon: ShieldCheck,
+    title: 'Security & compliance',
+    desc: 'PCI DSS Level 1, end-to-end encryption and continuous monitoring.',
+  },
+];
+---
+
+<MainLayout
+  title="iSmart Classic | iSmart for Business"
+  description="iSmart Classic is the business side of iSmart International — accept cards, mobile money, bank transfers and QR across African markets, with settlement, reporting and developer tooling built in."
+>
+  <section
+    data-nav-theme="dark"
+    class="business-hero relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden text-white"
+  >
+    {/* ================= FILM — right of centre, bleeding off the edge ============ */}
+    <div class="hero-film pointer-events-none absolute z-0">
+      <video
+        id="business-film"
+        class="h-full w-full object-cover"
+        poster="/video/business-poster.webp"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        disablepictureinpicture
+        aria-label="iSmart business payments film"
+      >
+        {/* Full-weight file only where the viewport can use it. */}
+        <source src="/video/business-720.mp4" type="video/mp4" media="(min-width: 768px)" />
+        <source src="/video/business-540.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    {/* Left-hand falloff: guarantees the type never fights a bright frame,
+        on top of the mask that already feathers the footage itself. */}
+    <div class="hero-falloff pointer-events-none absolute inset-y-0 left-0 z-[1]"></div>
+
+    {/* On phones the film sits behind the type, so it is dimmed further. */}
+    <div class="hero-dim pointer-events-none absolute inset-0 z-[1]"></div>
+
+    {/* ================= CONTENT ================= */}
+    <div class="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-center px-6 pb-16 pt-36 md:px-10 lg:pt-40">
+      <div class="hero-copy">
+        <div data-reveal="fade" class="mb-6 flex items-center gap-3">
+          <span class="h-px w-8 bg-gradient-to-r from-transparent to-bronze-500"></span>
+          <span class="eyebrow text-bronze-500">iSmart Classic</span>
+        </div>
+
+        <h1 data-reveal style="--reveal-delay:80ms" class="hero-title font-display">
+          <span class="text-metal">Every way your customers pay.</span>
+          <span class="text-bronze-object"> One integration.</span>
+        </h1>
+
+        <p data-reveal style="--reveal-delay:180ms" class="hero-sub">
+          Accept payments, settle reliably and build on top through one
+          connection to iSmart.
+        </p>
+
+        <div data-reveal style="--reveal-delay:260ms" class="mt-9 flex flex-wrap items-center gap-4">
+          <a
+            href="https://www.pay.ismartghana.com"
+            class="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-emerald-700 px-8 py-4 font-display text-sm font-semibold text-white transition-all duration-500 hover:bg-emerald-600 hover:shadow-[0_0_44px_-8px_rgba(0,161,132,0.55)]"
+          >
+            <span
+              class="pointer-events-none absolute inset-y-0 -left-full w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-bronze-400/30 to-transparent transition-all duration-700 group-hover:left-[150%]"
+            ></span>
+            Go to iSmartPay
+            <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
+          </a>
+
+          <a
+            href="#offers"
+            class="inline-flex items-center rounded-full border border-white/15 bg-white/[0.03] px-8 py-4 font-display text-sm font-semibold text-silver-200 backdrop-blur-sm transition-all duration-500 hover:border-bronze-500/50 hover:bg-white/[0.06] hover:text-white"
+          >
+            What we offer
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {/* ================= OFFER RAIL ================= */}
+    <div id="offers" class="relative z-10 w-full scroll-mt-28 border-t border-white/[0.08] bg-black/70 backdrop-blur-sm">
+      <div class="mx-auto grid max-w-7xl grid-cols-1 gap-px px-6 md:px-10 sm:grid-cols-2 lg:grid-cols-4">
+        {offers.map((o, i) => (
+          <div
+            data-reveal="fade"
+            style={`--reveal-delay:${340 + i * 70}ms`}
+            class="group flex flex-col gap-3 py-8 sm:pr-8"
+          >
+            <o.Icon className="h-5 w-5 text-emerald-400" strokeWidth={1.5} />
+            <h2 class="font-display text-[0.9375rem] font-bold tracking-tight text-white">
+              {o.title}
+            </h2>
+            <p class="max-w-[34ch] text-[0.8125rem] leading-relaxed text-silver-500">
+              {o.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="stack">
+  {/* ================================================================
+      SECTION 02 — What running on iSmart actually looks like.
+      Three tall cards on the same black ground as the hero, so the page
+      reads as one surface rather than stacked bands.
+     ================================================================ */}
+  <section id="how" data-nav-theme="dark" class="biz-section">
+    <div class="biz-head">
+      <h2 data-reveal class="biz-title font-display">Your payments, handled end to end</h2>
+      <p data-reveal style="--reveal-delay:100ms" class="biz-lede">
+        Connect once and iSmart takes it from there — collecting from every rail
+        your customers use, settling to your account on schedule, and giving your
+        developers the tooling to build on top.
+      </p>
+    </div>
+
+    <div class="biz-cards">
+      {cards.map((c, i) => (
+        <article
+          data-reveal="fade"
+          style={`--reveal-delay:${160 + i * 90}ms`}
+          class:list={['biz-card', `tone-${c.tone}`, i === 1 && 'is-raised']}
+        >
+          {/* Artwork */}
+          {c.photo ? (
+            <img
+              src={`/business-cards/${c.photo}`}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              class="biz-card__art"
+            />
+          ) : (
+            <div class="biz-card__art biz-card__art--drawn" aria-hidden="true"></div>
+          )}
+
+          {/* Scrims: one for the title above, one for the chip below. */}
+          <div class="biz-card__scrim" aria-hidden="true"></div>
+
+          {/* Type */}
+          <div class="biz-card__head">
+            <h3 class="biz-card__title font-display">{c.title}</h3>
+            <a href="https://www.pay.ismartghana.com" class="biz-card__link">
+              {c.link}
+              <ChevronRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+
+          {/* Status chip */}
+          <div class="biz-chip">
+            <span class="biz-chip__dot" aria-hidden="true"></span>
+            <span class="biz-chip__text">
+              <span class="biz-chip__label">{c.chip.label}</span>
+              <span class="biz-chip__sub">{c.chip.sub}</span>
+            </span>
+            <ChevronRight className="biz-chip__chev h-4 w-4" />
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {/* ================================================================
+      SECTION 03 — the bronze plate, rising over the section above it.
+      Sticky-stack: the cards section locks once fully scrolled, then this
+      panel slides up over it. Pure CSS, no scroll listener.
+     ================================================================ */}
+  <section data-nav-theme="dark" class="bronze-section">
+    <img
+      src="/bronze-foil-1920.webp"
+      srcset="/bronze-foil-960.webp 960w, /bronze-foil-1920.webp 1920w"
+      sizes="100vw"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+      class="bronze-bg"
+    />
+
+    <div class="bronze-inner">
+      <div data-reveal class="glass-card">
+        <span class="eyebrow glass-eyebrow">Get started</span>
+
+        <h2 class="glass-title font-display">
+          Start taking payments in days, not quarters.
+        </h2>
+
+        <p class="glass-body">
+          Tell us the rails, volumes and markets you need. We will get you from
+          first conversation to first live transaction — with the integration
+          work, compliance and settlement handled alongside you.
+        </p>
+
+        <div class="glass-actions">
+          <a
+            href="https://www.pay.ismartghana.com"
+            class="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-white px-8 py-4 font-display text-sm font-semibold text-black transition-all duration-500 hover:bg-white/90"
+          >
+            Go to iSmartPay
+            <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
+          </a>
+
+          <a href="#how" class="glass-link">
+            See how it works
+            <ChevronRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+</MainLayout>
+
+<style>
+  /* Everything load-bearing here is plain CSS rather than utility classes.
+     The ground colour and the film's geometry decide whether this hero reads at
+     all, and they should not depend on a class being scanned and generated. */
+  .business-hero {
+    background-color: #000;
+  }
+
+  /* ─── Hero type ───
+     Sizes live here, not in arbitrary utilities, so the hierarchy cannot
+     silently collapse: a headline that falls back to browser defaults reads
+     the same size as its own supporting line, which is exactly the failure
+     this hero had. */
+  .hero-copy {
+    max-width: 34rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.75rem, 5.6vw, 5rem);
+    font-weight: 800;
+    line-height: 0.96;
+    letter-spacing: -0.038em;
+    text-wrap: balance;
+  }
+
+  .hero-sub {
+    margin-top: 1.75rem;
+    max-width: 42ch;
+    font-size: clamp(1.0625rem, 1.15vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--color-silver-400);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-copy { max-width: 40rem; }
+  }
+
+  /* Phones: the film sits behind the type, full width, feathered from the top. */
+  .hero-film {
+    inset: 0;
+    mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%);
+  }
+
+  .hero-dim {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-falloff {
+    width: 100%;
+    background: linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.8) 55%, transparent 100%);
+  }
+
+  /* Desktop: the film clears the type entirely, starting just past halfway and
+     bleeding off the right edge so it reads as a window into something larger.
+     Shot on black, so it is feathered into the page rather than boxed — no
+     card, no border, no rounded corner. */
+  @media (min-width: 1024px) {
+    .hero-film {
+      inset: 0 -6% 0 50%;
+      mask-image:
+        linear-gradient(to right, transparent 0%, #000 14%, #000 100%),
+        linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+      -webkit-mask-image:
+        linear-gradient(to right, transparent 0%, #000 14%, #000 100%),
+        linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+      mask-composite: intersect;
+      -webkit-mask-composite: source-in;
+    }
+
+    .hero-dim { background: none; }
+
+    .hero-falloff { width: 56%; }
+  }
+
+  /* Hairline dividers between the offer cells, without a border on the last. */
+  @media (min-width: 640px) {
+    #offers .group + .group {
+      box-shadow: -1px 0 0 rgba(255, 255, 255, 0.08);
+      padding-left: 2rem;
+    }
+  }
+
+  /* ================= SECTION 02 — business cards =================
+     Same black ground as the hero so the page reads as one surface.
+     Geometry and type live in real CSS for the same reason as the hero:
+     these are load-bearing, and must not depend on a scanned class. */
+  .biz-section {
+    background-color: #000;
+    padding: 6rem 1.5rem 7rem;
+  }
+
+  .biz-head {
+    width: 100%;
+    margin: 0 auto 4rem;
+    max-width: 52rem;
+    text-align: center;
+  }
+
+  .biz-title {
+    font-size: clamp(2rem, 4.2vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    color: #fff;
+    text-wrap: balance;
+  }
+
+  .biz-lede {
+    margin: 1.5rem auto 0;
+    max-width: 46ch;
+    font-size: clamp(1rem, 1.05vw, 1.125rem);
+    line-height: 1.65;
+    color: var(--color-silver-400);
+  }
+
+  .biz-cards {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+    /* Explicit width: without it, the `margin: 0 auto` below makes this a
+       shrink-to-fit flex item once the section is pinned, and the cards —
+       which take their size from aspect-ratio — collapse to zero. */
+    width: 100%;
+    max-width: 76rem;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .biz-section { padding: 8rem 2.5rem 9rem; }
+    .biz-cards { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: start; }
+    /* The middle card lifts, so the row has a rhythm instead of a flat edge. */
+    .biz-card.is-raised { transform: translateY(-2rem); }
+  }
+
+  .biz-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    aspect-ratio: 3 / 4.15;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.6s ease;
+  }
+
+  .biz-card:hover { border-color: rgba(214, 142, 99, 0.45); }
+
+  @media (min-width: 768px) {
+    .biz-card:hover { transform: translateY(-6px); }
+    .biz-card.is-raised:hover { transform: translateY(calc(-2rem - 6px)); }
+  }
+
+  .biz-card__art {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .biz-card:hover .biz-card__art { transform: scale(1.06); }
+
+  /* Fallback art: brand-toned, deliberately composed, so an unfilled slot
+     never reads as a missing image. */
+  .biz-card__art--drawn { background-color: var(--color-graphite-900); }
+
+  .tone-emerald .biz-card__art--drawn {
+    background-image:
+      radial-gradient(110% 80% at 20% 10%, rgba(0, 161, 132, 0.42), transparent 62%),
+      radial-gradient(90% 70% at 85% 95%, rgba(0, 109, 91, 0.5), transparent 60%),
+      linear-gradient(165deg, #0E1A18 0%, #060A09 100%);
+  }
+
+  .tone-graphite .biz-card__art--drawn {
+    background-image:
+      radial-gradient(110% 80% at 80% 8%, rgba(201, 205, 211, 0.22), transparent 60%),
+      radial-gradient(80% 60% at 15% 90%, rgba(0, 109, 91, 0.22), transparent 62%),
+      linear-gradient(165deg, #202329 0%, #08090B 100%);
+  }
+
+  .tone-bronze .biz-card__art--drawn {
+    background-image:
+      radial-gradient(110% 80% at 25% 12%, rgba(214, 142, 99, 0.42), transparent 62%),
+      radial-gradient(85% 65% at 90% 92%, rgba(142, 83, 53, 0.45), transparent 60%),
+      linear-gradient(165deg, #1C1310 0%, #080605 100%);
+  }
+
+  /* Darkened at both ends: the title needs the top, the chip needs the base. */
+  /* Darkened at both ends: the title needs the top, the chip needs the base.
+     The top stop is set from the supplied photography — one of these frames is
+     near-white in its upper third, where the white title sits, and a lighter
+     scrim measured 1.9:1 there. This holds every card above 4:1 while still
+     leaving the image clearly readable through the middle. */
+  .biz-card__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.22) 50%,
+                      rgba(0, 0, 0, 0.4) 74%, rgba(0, 0, 0, 0.84) 100%);
+  }
+
+  .biz-card__head {
+    position: absolute;
+    inset: 0 0 auto 0;
+    padding: 1.75rem 1.5rem 0;
+  }
+
+  .biz-card__title {
+    font-size: clamp(1.375rem, 1.9vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.14;
+    letter-spacing: -0.025em;
+    color: #fff;
+    text-wrap: balance;
+  }
+
+  .biz-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.72);
+    transition: color 0.35s ease, gap 0.35s ease;
+  }
+
+  .biz-card__link:hover {
+    color: #fff;
+    gap: 0.5rem;
+  }
+
+  /* Glass status chip, sitting on the base of the card. */
+  .biz-chip {
+    position: absolute;
+    inset: auto 1rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0.875rem;
+    border-radius: 0.875rem;
+    background: rgba(22, 24, 27, 0.62);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .biz-chip__dot {
+    flex: 0 0 auto;
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    position: relative;
+  }
+
+  .biz-chip__dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-radius: 999px;
+    background: var(--color-emerald-400);
+    box-shadow: 0 0 10px rgba(33, 190, 159, 0.8);
+  }
+
+  .biz-chip__text { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+  .biz-chip__label { font-size: 0.8125rem; font-weight: 600; color: #fff; }
+  .biz-chip__sub { font-size: 0.75rem; color: var(--color-silver-500); }
+  .biz-chip__chev { margin-left: auto; color: var(--color-silver-500); flex: 0 0 auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .biz-card, .biz-card__art, .biz-card__link { transition: none; }
+    .biz-card:hover, .biz-card.is-raised:hover { transform: none; }
+    .biz-card:hover .biz-card__art { transform: scale(1.02); }
+  }
+
+
+  /* ================= SECTION 03 — bronze plate =================
+
+     THE STACK
+     ---------
+     The cards section is `position: sticky; bottom: 0`. That is the right
+     primitive here, not `top: 0`: a section taller than the viewport pinned to
+     the top would freeze with its lower half unreachable. Pinned to the bottom
+     it scrolls through normally, locks the moment it is fully in view, and then
+     simply stops — leaving the bronze panel to climb over it.
+
+     No scroll listener, no GSAP, nothing to keep in sync with Lenis. The
+     browser does it on the compositor, so it holds 60fps for free.
+
+     The footer sits outside <main>, which is the sticky containing block, so
+     the pin releases exactly as the footer arrives — it lands last, on top.  */
+  .stack {
+    position: relative;
+  }
+
+  /* THE STACK
+     ---------
+     The cards section pins with `top: 0` and the bronze panel, being the next
+     sibling with a higher z-index, climbs over it. Browser-native, composited,
+     no scroll listener to keep in sync with Lenis.
+
+     `top` and not `bottom`: a sticky box taller than the viewport gets a zero
+     offset from `bottom` — the browser simply refuses to pin it (verified).
+     So the pin is gated on the section actually fitting the viewport, and the
+     section is laid out to fit while it is pinned. Below that, the two
+     sections just follow one another, which is a perfectly good fallback. */
+  @media (min-width: 1024px) and (min-height: 860px) {
+    .biz-section {
+      position: sticky;
+      top: 0;
+      z-index: 0;
+      height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4.5rem 2.5rem;
+    }
+
+    .biz-head { margin-bottom: 2.75rem; }
+    .biz-card { aspect-ratio: 3 / 3.55; }
+    .biz-card.is-raised { transform: translateY(-1.5rem); }
+    .biz-card.is-raised:hover { transform: translateY(calc(-1.5rem - 6px)); }
+  }
+
+  .bronze-section {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: 100svh;
+    padding: 7rem 1.5rem;
+    /* The rounded lip and the shadow above it are what sell the climb: the
+       panel reads as a separate surface passing in front, not a colour change. */
+    border-radius: 2rem 2rem 0 0;
+    box-shadow: 0 -2rem 4rem rgba(0, 0, 0, 0.55);
+    background-color: #1A0F08;
+  }
+
+  @media (min-width: 768px) {
+    .bronze-section { padding: 9rem 2.5rem; border-radius: 2.5rem 2.5rem 0 0; }
+  }
+
+  .bronze-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .bronze-inner {
+    width: 100%;
+    max-width: 76rem;
+    margin: 0 auto;
+    display: flex;
+    /* The supplied foil is bright on the left and falls away to the right, so
+       the card sits right of centre where the metal is darkest. */
+    justify-content: flex-end;
+  }
+
+  /* ─── Glass card ───
+     Dark-tinted rather than white-tinted glass. On foil this bright, clear
+     glass would leave white type sitting on a 164-luminance highlight; the
+     tint buys the contrast while still reading as glass, not as a solid box. */
+  .glass-card {
+    position: relative;
+    width: 100%;
+    max-width: 34rem;
+    padding: 2.5rem 2rem;
+    border-radius: 1.75rem;
+    background: rgba(20, 13, 9, 0.62);
+    -webkit-backdrop-filter: blur(28px) saturate(130%);
+    backdrop-filter: blur(28px) saturate(130%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      0 32px 70px -24px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+
+  @media (min-width: 768px) {
+    .glass-card { padding: 3.25rem 3rem; }
+  }
+
+  /* A lit top edge, the way a real glass panel catches light. */
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset-inline: 12%;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.55), transparent);
+  }
+
+  .glass-eyebrow { color: var(--color-bronze-300); }
+
+  .glass-title {
+    margin-top: 1.25rem;
+    font-size: clamp(1.875rem, 3.2vw, 2.875rem);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.032em;
+    color: #fff;
+    text-wrap: balance;
+  }
+
+  .glass-body {
+    margin-top: 1.25rem;
+    font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+    line-height: 1.65;
+    /* 0.82, not 0.76: measured against the brightest foil a narrow
+       viewport can put behind this card, 0.76 landed at 4.46:1. */
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .glass-actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+
+  .glass-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.35s ease, gap 0.35s ease;
+  }
+
+  .glass-link:hover { color: #fff; gap: 0.625rem; }
+
+  /* Sticky pinning is a scroll effect; if motion is unwelcome, let the
+     sections simply follow one another. */
+  @media (prefers-reduced-motion: reduce) {
+    .biz-section { position: static; }
+  }
+
+</style>
+
+<script>
+  // Autoplay is in the markup so the film is running before hydration, but a
+  // reduced-motion preference wins: freeze on the poster frame instead.
+  const film = document.getElementById('business-film') as HTMLVideoElement | null;
+  if (film && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    film.autoplay = false;
+    film.pause();
+    film.currentTime = 0;
+  }
+</script>

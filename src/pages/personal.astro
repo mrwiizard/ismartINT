@@ -1,0 +1,621 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import WaveDivider from '../components/WaveDivider.astro';
+import Logo from '../components/Logo.astro';
+import { ArrowRight } from 'lucide-react';
+
+/**
+ * PERSONAL — iSmart International
+ *
+ * Four movements, light to dark:
+ *   1 hero        warm white, the film as full-bleed ground
+ *   2 everyday    warm white, three editorial moments
+ *   3 iSmartPay   graphite, the product
+ *   4 the future  bronze, Africa, the close
+ *
+ * The supplied film (perosnal-ismart.mp4) is shot on white, so it carries the
+ * hero as its ground rather than sitting on it. It arrived as HEVC with the
+ * index at the end of the file — unplayable in Firefox and unable to show a
+ * frame before the whole 7.2MB had downloaded — so it is remuxed to faststart
+ * H.264 here.
+ *
+ * Sections are joined by the wave, not by butting edges. Load-bearing geometry
+ * and type scale live in plain CSS so nothing depends on a scanned utility.
+ */
+
+const moments = [
+  {
+    label: 'Send',
+    title: 'Move money simply and confidently.',
+    tone: 'emerald',
+  },
+  {
+    label: 'Pay',
+    title: 'Handle everyday payments with ease.',
+    tone: 'bronze',
+  },
+  {
+    label: 'Manage',
+    title: 'Stay connected to your financial activity.',
+    tone: 'graphite',
+  },
+];
+---
+
+<MainLayout
+  title="Personal | iSmart International"
+  description="A smarter, more connected way to manage everyday payments, move money and stay connected to your financial life — with iSmartPay Standard from iSmart International."
+>
+  {/* ══════════════ 1 · HERO ══════════════ */}
+  <section data-nav-theme="light" class="ph-hero">
+    {/* The film covers the whole section. It is rendered wider than the
+        viewport and anchored left, which pushes the phone — centre-frame in the
+        source — across to roughly two-thirds, leaving the film's own white
+        space on the left for the type. No overlay is needed on top of it. */}
+    <div class="ph-hero__film">
+      <video
+        id="personal-film"
+        class="ph-film"
+        poster="/video/personal-hero-poster.webp"
+        muted
+        loop
+        playsinline
+        preload="none"
+        disablepictureinpicture
+        aria-label="The iSmart app on a phone"
+      >
+        <source src="/video/personal-hero-720.mp4" type="video/mp4" media="(min-width: 768px)" />
+        <source src="/video/personal-hero-540.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="ph-hero__inner">
+      <div class="ph-hero__copy">
+        <span data-reveal="fade" class="eyebrow ph-eyebrow">Personal finance, reimagined</span>
+
+        <h1 data-reveal style="--reveal-delay:80ms" class="ph-title font-display">
+          Your money. Your life. <span class="ph-title-accent">In motion.</span>
+        </h1>
+
+        <p data-reveal style="--reveal-delay:170ms" class="ph-lede">
+          A smarter, more connected way to manage everyday payments, move money
+          and stay connected to your financial life.
+        </p>
+
+        <div data-reveal style="--reveal-delay:250ms" class="ph-actions">
+          <a href="https://www.pay.ismartghana.com" class="ph-cta">
+            Explore iSmartPay
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ══════════════ 2 · EVERYDAY FINANCE ══════════════ */}
+  <section data-nav-theme="light" class="ph-everyday">
+    <div class="ph-shell">
+      <div class="ph-head">
+        <h2 data-reveal class="ph-h2 font-display">Finance that fits into your life.</h2>
+        <p data-reveal style="--reveal-delay:90ms" class="ph-sub">
+          From sending and receiving money to everyday payments and essential
+          services, iSmart brings the things you do with money into one seamless
+          digital experience.
+        </p>
+      </div>
+
+      {/* Three editorial moments. Numbered rules and large type — no cards. */}
+      <ol class="ph-moments">
+        {moments.map((m, i) => (
+          <li
+            data-reveal
+            style={`--reveal-delay:${120 + i * 130}ms`}
+            class:list={['ph-moment', `tone-${m.tone}`]}
+          >
+            <span class="ph-moment__index">{String(i + 1).padStart(2, '0')}</span>
+            <span class="ph-moment__label">{m.label}</span>
+            <h3 class="ph-moment__title font-display">{m.title}</h3>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <WaveDivider to="var(--color-graphite-950)" accent="emerald" />
+
+  {/* ══════════════ 3 · iSMARTPAY STANDARD ══════════════ */}
+  <section data-nav-theme="dark" class="ph-product">
+    <div class="ph-shell ph-product__inner">
+      <div class="ph-product__copy">
+        <span data-reveal="fade" class="eyebrow ph-eyebrow-dark">iSmartPay Standard</span>
+
+        <h2 data-reveal style="--reveal-delay:80ms" class="ph-h2 ph-h2--dark font-display">
+          One experience for everyday payments.
+        </h2>
+
+        <p data-reveal style="--reveal-delay:160ms" class="ph-sub ph-sub--dark">
+          iSmartPay Standard gives individuals a simple digital way to send,
+          receive and manage everyday payments — bringing convenience,
+          accessibility and control closer to you.
+        </p>
+
+        <p data-reveal style="--reveal-delay:240ms" class="ph-refrain">
+          Send. Pay. Receive. Stay connected.
+        </p>
+
+        <div data-reveal style="--reveal-delay:300ms" class="ph-actions">
+          <a href="https://www.pay.ismartghana.com" class="ph-cta ph-cta--light">
+            Explore iSmartPay
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+
+      {/* Device, drawn rather than screenshotted: no invented app UI, just the
+          object and the wave moving through it. */}
+      <div data-reveal="fade" style="--reveal-delay:180ms" class="ph-device">
+        <svg class="ph-device__waves" viewBox="0 0 520 640" fill="none" aria-hidden="true">
+          <path class="ph-wave ph-wave--1" d="M-40 300 C120 210 220 400 380 320 C470 274 520 250 580 268"
+                stroke="var(--color-emerald-500)" stroke-width="1.5" opacity="0.5" />
+          <path class="ph-wave ph-wave--2" d="M-40 372 C130 292 230 470 400 388 C480 350 530 336 580 350"
+                stroke="var(--color-bronze-600)" stroke-width="1.5" opacity="0.45" />
+          <path class="ph-wave ph-wave--3" d="M-40 232 C140 156 210 330 370 250 C450 210 520 196 580 210"
+                stroke="var(--color-emerald-400)" stroke-width="1" opacity="0.25" />
+        </svg>
+
+        <div class="ph-device__body">
+          <span class="ph-device__notch" aria-hidden="true"></span>
+          <div class="ph-device__screen">
+            <Logo mark="circuit" height={54} alt="" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ══════════════ 4 · THE FUTURE ══════════════ */}
+  <section data-nav-theme="dark" class="ph-future">
+    <img
+      src="/africa-presence-1200.webp"
+      srcset="/africa-presence-700.webp 700w, /africa-presence-1200.webp 1200w"
+      sizes="(min-width: 1024px) 46vw, 86vw"
+      alt="The African markets where iSmart operates"
+      width="943"
+      height="1200"
+      loading="lazy"
+      decoding="async"
+      class="ph-map"
+    />
+
+    <div class="ph-shell ph-future__inner">
+      <div class="ph-future__copy">
+        <h2 data-reveal class="ph-h2 ph-h2--dark font-display">
+          A new way to move with money.
+        </h2>
+
+        <p data-reveal style="--reveal-delay:100ms" class="ph-sub ph-sub--dark">
+          As Africa's digital economy continues to evolve, iSmart is building
+          financial experiences that make it easier for individuals to
+          participate, connect and move value in a changing world.
+        </p>
+
+        <p data-reveal style="--reveal-delay:200ms" class="ph-close font-display">
+          Your money is moving forward.<br />So should you.
+        </p>
+
+        <div data-reveal style="--reveal-delay:280ms" class="ph-actions">
+          <a href="https://www.pay.ismartghana.com" class="ph-cta ph-cta--light">
+            Explore iSmartPay
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  /* ══════════════ shared ══════════════ */
+  .ph-shell {
+    width: 100%;
+    max-width: 76rem;
+    margin: 0 auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) { .ph-shell { padding-inline: 2.5rem; } }
+
+  .ph-eyebrow { color: var(--color-bronze-900); }
+  .ph-eyebrow-dark { color: var(--color-bronze-500); }
+
+  .ph-h2 {
+    font-size: clamp(2rem, 4.2vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  .ph-h2--dark { color: #fff; }
+
+  .ph-sub {
+    margin-top: 1.5rem;
+    max-width: 48ch;
+    font-size: clamp(1rem, 1.05vw, 1.125rem);
+    line-height: 1.68;
+    color: var(--color-ink-muted);
+  }
+
+  .ph-sub--dark { color: var(--color-silver-400); }
+
+  .ph-actions { margin-top: 2.25rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  .ph-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    border-radius: 999px;
+    background: var(--color-emerald-700);
+    padding: 1rem 2rem;
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #fff;
+    transition: background 0.5s var(--ease-brand), box-shadow 0.5s var(--ease-brand);
+  }
+
+  .ph-cta:hover {
+    background: var(--color-emerald-600);
+    box-shadow: 0 0 44px -12px rgba(0, 161, 132, 0.6);
+  }
+
+  .ph-cta--light { background: #fff; color: var(--color-ink); }
+  .ph-cta--light:hover { background: rgba(255, 255, 255, 0.9); box-shadow: none; }
+
+  /* ══════════════ 1 · hero ══════════════
+     Warm white with the faintest emerald and bronze weather behind the stage.
+     Both sit under 6% — depth you feel rather than notice. */
+  .ph-hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 100svh;
+    overflow: hidden;
+    background-color: var(--color-paper-warm);
+  }
+
+  /* Phones: the film is a band under the copy rather than behind it — at this
+     width there is no room to hold type clear of the phone. */
+  .ph-hero__film {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    order: 2;
+  }
+
+  .ph-film {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .ph-hero__inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 76rem;
+    margin: 0 auto;
+    padding: 8rem 1.5rem 2.5rem;
+    order: 1;
+  }
+
+  .ph-hero__copy { width: 100%; max-width: 34rem; }
+
+  .ph-title {
+    margin-top: 1.5rem;
+    font-size: clamp(2.5rem, 5.4vw, 4.5rem);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  .ph-title-accent { color: var(--color-emerald-700); }
+
+  .ph-lede {
+    margin-top: 1.75rem;
+    max-width: 38ch;
+    font-size: clamp(1.0625rem, 1.15vw, 1.1875rem);
+    line-height: 1.65;
+    color: var(--color-ink-muted);
+  }
+
+  /* ══════════════ 2 · everyday ══════════════ */
+  .ph-everyday {
+    position: relative;
+    background-color: var(--color-paper-warm);
+    background-image:
+      linear-gradient(180deg, transparent 0%, rgba(22, 23, 26, 0.022) 100%);
+    padding: 5rem 0 6.5rem;
+  }
+
+  .ph-head { max-width: 46rem; }
+
+  .ph-moments {
+    margin: 4rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0;
+  }
+
+  .ph-moment {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1.5rem;
+    row-gap: 0.5rem;
+    align-items: baseline;
+    padding: 2.25rem 0;
+    border-top: 1px solid rgba(22, 23, 26, 0.12);
+  }
+
+  .ph-moment:last-child { border-bottom: 1px solid rgba(22, 23, 26, 0.12); }
+
+  .ph-moment__index {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    color: var(--color-ink-faint);
+    grid-row: 1 / span 2;
+  }
+
+  .ph-moment__label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .tone-emerald  .ph-moment__label { color: var(--color-emerald-700); }
+  .tone-bronze   .ph-moment__label { color: var(--color-bronze-900); }
+  .tone-graphite .ph-moment__label { color: var(--color-ink-muted); }
+
+  .ph-moment__title {
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--color-ink);
+  }
+
+  /* ══════════════ 3 · iSmartPay Standard ══════════════ */
+  .ph-product {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: var(--color-graphite-950);
+    background-image:
+      radial-gradient(64% 50% at 76% 26%, rgba(0, 109, 91, 0.16), transparent 70%),
+      radial-gradient(48% 40% at 10% 88%, rgba(197, 121, 80, 0.09), transparent 72%);
+    padding: 6rem 0 7rem;
+  }
+
+  .ph-product__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .ph-refrain {
+    margin-top: 2rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-bronze-500);
+  }
+
+  /* ─ device ─ */
+  .ph-device {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24rem;
+  }
+
+  .ph-device__waves {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .ph-wave {
+    stroke-dasharray: 8 720;
+    animation: ph-drift 14s linear infinite;
+  }
+
+  .ph-wave--2 { animation-duration: 18s; animation-delay: -5s; }
+  .ph-wave--3 { animation-duration: 22s; animation-delay: -11s; }
+
+  /* Light travelling the curve — money moving, once every fourteen seconds. */
+  @keyframes ph-drift {
+    from { stroke-dashoffset: 728; }
+    to   { stroke-dashoffset: 0; }
+  }
+
+  .ph-device__body {
+    position: relative;
+    width: 13.5rem;
+    aspect-ratio: 9 / 18.5;
+    border-radius: 2rem;
+    padding: 0.5rem;
+    background: linear-gradient(158deg, #33373D 0%, #15171A 46%, #26292E 100%);
+    box-shadow:
+      0 40px 90px -30px rgba(0, 0, 0, 0.8),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  }
+
+  .ph-device__notch {
+    position: absolute;
+    top: 0.9rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3.25rem;
+    height: 0.3rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    z-index: 2;
+  }
+
+  .ph-device__screen {
+    height: 100%;
+    width: 100%;
+    border-radius: 1.6rem;
+    background:
+      radial-gradient(80% 55% at 50% 36%, rgba(0, 109, 91, 0.3), transparent 70%),
+      linear-gradient(180deg, #0C0E10 0%, #08090B 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ══════════════ 4 · the future ══════════════ */
+  .ph-future {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: #0A0708;
+    background-image:
+      radial-gradient(58% 46% at 22% 20%, rgba(197, 121, 80, 0.16), transparent 72%),
+      radial-gradient(46% 38% at 84% 88%, rgba(0, 109, 91, 0.1), transparent 74%);
+    padding: 6.5rem 0 8rem;
+  }
+
+  .ph-map {
+    position: absolute;
+    z-index: -1;
+    right: -14%;
+    bottom: -6%;
+    width: 86%;
+    max-width: 34rem;
+    height: auto;
+    opacity: 0.32;
+    /* The artwork is a bronze-on-bronze composition, not a cut-out, so its
+       frame is dissolved rather than shown. */
+    mask-image: radial-gradient(72% 68% at 52% 46%, #000 42%, transparent 100%);
+    -webkit-mask-image: radial-gradient(72% 68% at 52% 46%, #000 42%, transparent 100%);
+  }
+
+  .ph-future__copy { position: relative; max-width: 42rem; }
+
+  .ph-close {
+    margin-top: 2.5rem;
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.028em;
+    color: #fff;
+  }
+
+  /* ══════════════ desktop ══════════════ */
+  @media (min-width: 1024px) {
+    .ph-hero {
+      display: block;
+      justify-content: initial;
+    }
+
+    /* Sized by HEIGHT, not width. Driving it off width scaled the phone up
+       until it overran the section and collided with the nav; bounding it to
+       the section height keeps the object at a natural size. It is inset from
+       the top so it clears the header, and the strip of page left exposed is
+       invisible — the film's ground measures (246,242,239) against the page's
+       (250,250,248). */
+    .ph-hero__film {
+      position: absolute;
+      /* Inset top and bottom so the phone is a considered object in the
+         composition rather than something filling every pixel — and so it
+         clears the header instead of colliding with it. */
+      top: 14%;
+      bottom: 8%;
+      right: 0;
+      left: auto;
+      z-index: -1;
+      width: 56%;
+      height: auto;
+      aspect-ratio: auto;
+      min-height: 0;
+      transform: none;
+      order: initial;
+    }
+
+    .ph-hero__inner {
+      display: flex;
+      align-items: center;
+      min-height: 100svh;
+      padding: 8rem 2.5rem;
+      order: initial;
+    }
+
+    .ph-hero__copy { max-width: 36rem; }
+
+    .ph-everyday { padding: 6.5rem 0 8rem; }
+
+    .ph-moment {
+      grid-template-columns: auto 8rem 1fr;
+      align-items: center;
+      column-gap: 2.5rem;
+      padding: 2.75rem 0;
+    }
+
+    .ph-moment__index { grid-row: auto; }
+
+    .ph-product__inner { grid-template-columns: 1fr 0.78fr; gap: 5rem; }
+
+    .ph-map { right: -8%; width: 52%; opacity: 0.38; }
+
+    .ph-future { padding: 8rem 0 9.5rem; }
+  }
+
+  /* ══════════════ motion ══════════════ */
+  @media (prefers-reduced-motion: reduce) {
+    .ph-wave { animation: none; stroke-dasharray: none; }
+  }
+</style>
+
+<script>
+  // The hero film is decorative and heavy, so it is never fetched until it is
+  // actually on screen — `preload="none"` plus an observer that swaps in the
+  // sources. A reduced-motion preference leaves the poster in place for good.
+  const film = document.getElementById('personal-film') as HTMLVideoElement | null;
+
+  if (film) {
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!still) {
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            if (film.preload === 'none') {
+              film.preload = 'auto';
+              film.load();
+            }
+            film.play().catch(() => {});
+          } else {
+            film.pause();
+          }
+        },
+        { threshold: 0.25 }
+      );
+      io.observe(film);
+    }
+  }
+</script>
