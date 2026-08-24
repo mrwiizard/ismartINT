@@ -1,3 +1,4 @@
+import { ISMARTPAY_URL } from '../config/site';
 import React, { useState, useEffect, useRef } from 'react';
 import { X, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -103,8 +104,8 @@ export default function NavigationOverlay() {
           className="flex flex-grow flex-col justify-center gap-2 py-8"
         >
           {[
-            { label: 'Personal',  href: '/personal',  desc: 'Send, receive and manage money.' },
-            { label: 'Business',  href: '/business',  desc: 'Accept payments and scale across Africa.' },
+            { label: 'Personal',  href: '/personal/',  desc: 'Send, receive and manage money.' },
+            { label: 'Business',  href: '/business/',  desc: 'Accept payments and scale across Africa.' },
           ].map((item) => (
             <a
               key={item.href}
@@ -122,7 +123,7 @@ export default function NavigationOverlay() {
           ))}
 
           <a
-            href="https://www.pay.ismartghana.com"
+            href={ISMARTPAY_URL}
             onClick={closeMenu}
             className="group mt-8 inline-flex w-fit items-center gap-3 rounded-full bg-brand-emerald px-8 py-4 font-display text-sm font-semibold text-white transition-all duration-300 hover:bg-emerald-600"
           >

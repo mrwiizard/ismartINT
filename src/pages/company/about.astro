@@ -1,4 +1,5 @@
 ---
+import { ISMARTPAY_URL } from '../../config/site';
 import MainLayout from '../../layouts/MainLayout.astro';
 import WaveDivider from '../../components/WaveDivider.astro';
 import Logo from '../../components/Logo.astro';
@@ -60,8 +61,8 @@ import { ArrowRight } from 'lucide-react';
       </p>
 
       <div data-reveal style="--reveal-delay:250ms" class="about-actions">
-        <a href="/business" class="about-cta">What we build</a>
-        <a href="https://www.pay.ismartghana.com" class="about-link">Go to iSmartPay</a>
+        <a href="/business/" class="about-cta">What we build</a>
+        <a href={ISMARTPAY_URL} class="about-link">Go to iSmartPay</a>
       </div>
     </div>
   </section>
@@ -122,18 +123,18 @@ import { ArrowRight } from 'lucide-react';
         </p>
 
         <div data-reveal style="--reveal-delay:230ms" class="ab-two__routes">
-          <a href="/personal" class="ab-route">
+          <a href="/personal/" class="ab-route">
             <span class="ab-route__label">Personal</span>
             <span class="ab-route__desc">Send, pay and manage everyday money.</span>
           </a>
-          <a href="/business" class="ab-route">
+          <a href="/business/" class="ab-route">
             <span class="ab-route__label">iSmart Classic</span>
             <span class="ab-route__desc">Accept payments and settle across markets.</span>
           </a>
         </div>
 
         <div data-reveal style="--reveal-delay:300ms" class="ab-two__actions">
-          <a href="https://www.pay.ismartghana.com" class="btn-metal btn-metal--bronze">Explore iSmartPay</a>
+          <a href={ISMARTPAY_URL} class="btn-metal btn-metal--bronze">Explore iSmartPay</a>
         </div>
       </div>
     </div>
@@ -179,7 +180,7 @@ import { ArrowRight } from 'lucide-react';
         </p>
 
         <div data-reveal style="--reveal-delay:240ms" class="ab-trust__actions">
-          <a href="/business#how" class="ab-trust__link">
+          <a href="/business/#how" class="ab-trust__link">
             See how payments are handled
             <span aria-hidden="true">→</span>
           </a>

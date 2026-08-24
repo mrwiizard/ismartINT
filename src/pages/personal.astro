@@ -1,4 +1,5 @@
 ---
+import { ISMARTPAY_URL } from '../config/site';
 import MainLayout from '../layouts/MainLayout.astro';
 import WaveDivider from '../components/WaveDivider.astro';
 import Logo from '../components/Logo.astro';
@@ -113,7 +114,7 @@ const moments = [
         </p>
 
         <div data-reveal style="--reveal-delay:250ms" class="ph-actions">
-          <a href="https://www.pay.ismartghana.com" class="btn-metal">
+          <a href={ISMARTPAY_URL} class="btn-metal">
             Explore iSmartPay
             <ArrowRight className="h-4 w-4" />
           </a>
@@ -174,7 +175,7 @@ const moments = [
         </p>
 
         <div data-reveal style="--reveal-delay:300ms" class="ph-actions">
-          <a href="https://www.pay.ismartghana.com" class="btn-metal">
+          <a href={ISMARTPAY_URL} class="btn-metal">
             Explore iSmartPay
             <ArrowRight className="h-4 w-4" />
           </a>
@@ -225,7 +226,7 @@ const moments = [
         </p>
 
         <div data-reveal style="--reveal-delay:280ms" class="ph-actions">
-          <a href="https://www.pay.ismartghana.com" class="btn-metal">
+          <a href={ISMARTPAY_URL} class="btn-metal">
             Explore iSmartPay
             <ArrowRight className="h-4 w-4" />
           </a>

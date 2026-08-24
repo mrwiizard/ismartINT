@@ -168,7 +168,7 @@ export default function EcosystemPanels() {
               </p>
 
               <a
-                href="/solutions/ismartpay"
+                href="/solutions/ismartpay/"
                 className="group mt-1 inline-flex items-center gap-2.5 rounded-full bg-graphite-950 px-7 py-3.5 font-display text-sm font-semibold text-white transition-all duration-300 hover:bg-graphite-800"
               >
                 See how it works
@@ -280,7 +280,7 @@ export default function EcosystemPanels() {
             </p>
 
             <a
-              href="/company/about"
+              href="/company/about/"
               className="group mt-2 inline-flex items-center gap-3 rounded-full border border-bronze-600/30 bg-bronze-600/15 px-8 py-3.5 font-display text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-bronze-600/50 hover:bg-bronze-600/25"
             >
               Read More About Us

@@ -1,12 +1,13 @@
 ---
+import { ISMARTPAY_URL } from '../config/site';
 import Logo from './Logo.astro';
 import NavigationOverlay from '../islands/NavigationOverlay';
 
 // The nav is deliberately down to three things: who you are, who we are, and
 // the product. Everything else lives in the overlay menu and the footer.
 const audiences = [
-  { label: 'Personal', href: '/personal' },
-  { label: 'Business',  href: '/business'  },
+  { label: 'Personal', href: '/personal/' },
+  { label: 'Business',  href: '/business/'  },
 ];
 
 const path = Astro.url.pathname;
@@ -52,7 +53,7 @@ const activeAudience =
       </div>
 
       <a
-        href="/company/about"
+        href="/company/about/"
         class="nav-link group relative font-sans text-[0.8125rem] font-medium tracking-tight transition-colors duration-300"
       >
         About us
@@ -64,7 +65,7 @@ const activeAudience =
 
     <div class="flex items-center gap-3">
       <a
-        href="https://www.pay.ismartghana.com"
+        href={ISMARTPAY_URL}
         class="nav-cta hidden rounded-full border px-6 py-2.5 font-display text-[0.8125rem] font-semibold transition-all duration-400 sm:inline-flex"
       >
         iSmartPay

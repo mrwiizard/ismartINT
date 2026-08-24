@@ -1,4 +1,5 @@
 ---
+import { ISMARTPAY_URL } from '../config/site';
 import fs from 'node:fs';
 import path from 'node:path';
 import MainLayout from '../layouts/MainLayout.astro';
@@ -132,7 +133,7 @@ const offers = [
 
         <div data-reveal style="--reveal-delay:260ms" class="mt-9 flex flex-wrap items-center gap-4">
           <a
-            href="https://www.pay.ismartghana.com"
+            href={ISMARTPAY_URL}
             class="btn-metal"
           >
             Go to iSmartPay
@@ -216,7 +217,7 @@ const offers = [
           {/* Type */}
           <div class="biz-card__head">
             <h3 class="biz-card__title font-display">{c.title}</h3>
-            <a href="https://www.pay.ismartghana.com" class="biz-card__link">
+            <a href={ISMARTPAY_URL} class="biz-card__link">
               {c.link}
               <ChevronRight className="h-3.5 w-3.5" />
             </a>
@@ -269,7 +270,7 @@ const offers = [
 
         <div class="glass-actions">
           <a
-            href="https://www.pay.ismartghana.com"
+            href={ISMARTPAY_URL}
             class="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-white px-8 py-4 font-display text-sm font-semibold text-black transition-all duration-500 hover:bg-white/90"
           >
             Go to iSmartPay
