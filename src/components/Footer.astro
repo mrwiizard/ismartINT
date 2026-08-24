@@ -68,6 +68,40 @@ import { ArrowUpRight } from 'lucide-react';
       </div>
     </div>
 
+    {/* ─── Accreditation ───
+        Regulator and certification marks, on every page. The Bank of Ghana
+        mark keeps its own light tile: a regulator's logo should be shown as
+        issued, not recoloured or keyed out to suit a dark footer. */}
+    <div class="accreditation">
+      <span class="accreditation__label">Accreditation</span>
+
+      <ul class="accreditation__list">
+        <li class="accreditation__item">
+          <span class="accreditation__tile">
+            <img
+              src="/accreditation/bank-of-ghana.webp"
+              alt="Bank of Ghana"
+              width="240"
+              height="239"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+          <span class="accreditation__text">Licensed by the Bank of Ghana</span>
+        </li>
+
+        <li class="accreditation__item">
+          <span class="accreditation__mark">ISO/IEC<br /><strong>27001</strong></span>
+          <span class="accreditation__text">Information security management</span>
+        </li>
+
+        <li class="accreditation__item">
+          <span class="accreditation__mark">PCI DSS<br /><strong>Level 1</strong></span>
+          <span class="accreditation__text">Card data security</span>
+        </li>
+      </ul>
+    </div>
+
     {/* Bottom row */}
     <div class="flex flex-col sm:flex-row justify-between items-center gap-6 pt-12 text-xs text-silver-muted/60 font-mono">
       <div>
@@ -111,5 +145,88 @@ import { ArrowUpRight } from 'lucide-react';
   /* A touch more presence on wide screens, where it has room to breathe. */
   @media (min-width: 1024px) {
     .footer-watermark { opacity: 0.06; }
+  }
+</style>
+
+<style>
+  .accreditation {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .accreditation__label {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-silver-600);
+  }
+
+  .accreditation__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .accreditation__item {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  /* The regulator mark, unaltered, on the white it was issued on. */
+  .accreditation__tile {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 0.625rem;
+    background: #fff;
+    padding: 0.375rem;
+  }
+
+  .accreditation__tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Certifications have no supplied artwork, so they are set as type. */
+  .accreditation__mark {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 0.625rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    line-height: 1.35;
+    letter-spacing: 0.08em;
+    text-align: center;
+    color: var(--color-silver-500);
+  }
+
+  .accreditation__mark strong {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-silver-200);
+  }
+
+  .accreditation__text {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--color-silver-400);
+  }
+
+  @media (min-width: 700px) {
+    .accreditation__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
   }
 </style>
