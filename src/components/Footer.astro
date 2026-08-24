@@ -26,6 +26,24 @@ import { ArrowUpRight } from 'lucide-react';
             <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
           </a>
         </div>
+
+        {/* ─── Accreditation ───
+            Marks only. With no visible label, the claim lives entirely in each
+            alt attribute, so a screen reader still gets it. */}
+        <ul class="accreditation">
+          <li class="accreditation__tile">
+            <img src="/accreditation/bank-of-ghana.webp" alt="Licensed by the Bank of Ghana"
+                 width="240" height="239" loading="lazy" decoding="async" />
+          </li>
+          <li class="accreditation__tile">
+            <img src="/accreditation/iso-27001.webp" alt="ISO/IEC 27001 certified"
+                 width="260" height="260" loading="lazy" decoding="async" />
+          </li>
+          <li class="accreditation__tile accreditation__tile--wide">
+            <img src="/accreditation/pci-dss.webp" alt="PCI DSS Level 1 compliant"
+                 width="420" height="160" loading="lazy" decoding="async" />
+          </li>
+        </ul>
       </div>
 
       {/* Column 2: Solutions */}
@@ -66,40 +84,6 @@ import { ArrowUpRight } from 'lucide-react';
           </a></li>
         </ul>
       </div>
-    </div>
-
-    {/* ─── Accreditation ───
-        Regulator and certification marks, on every page. The Bank of Ghana
-        mark keeps its own light tile: a regulator's logo should be shown as
-        issued, not recoloured or keyed out to suit a dark footer. */}
-    <div class="accreditation">
-      <span class="accreditation__label">Accreditation</span>
-
-      <ul class="accreditation__list">
-        <li class="accreditation__item">
-          <span class="accreditation__tile">
-            <img
-              src="/accreditation/bank-of-ghana.webp"
-              alt="Bank of Ghana"
-              width="240"
-              height="239"
-              loading="lazy"
-              decoding="async"
-            />
-          </span>
-          <span class="accreditation__text">Licensed by the Bank of Ghana</span>
-        </li>
-
-        <li class="accreditation__item">
-          <span class="accreditation__mark">ISO/IEC<br /><strong>27001</strong></span>
-          <span class="accreditation__text">Information security management</span>
-        </li>
-
-        <li class="accreditation__item">
-          <span class="accreditation__mark">PCI DSS<br /><strong>Level 1</strong></span>
-          <span class="accreditation__text">Card data security</span>
-        </li>
-      </ul>
     </div>
 
     {/* Bottom row */}
@@ -150,83 +134,35 @@ import { ArrowUpRight } from 'lucide-react';
 
 <style>
   .accreditation {
-    margin-top: 3rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .accreditation__label {
-    display: block;
-    margin-bottom: 1.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.625rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--color-silver-600);
-  }
-
-  .accreditation__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.625rem;
     margin: 0;
     padding: 0;
     list-style: none;
-    display: grid;
-    gap: 1.75rem;
   }
 
-  .accreditation__item {
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-  }
-
-  /* The regulator mark, unaltered, on the white it was issued on. */
   .accreditation__tile {
-    flex: 0 0 auto;
     display: grid;
     place-items: center;
-    width: 3.25rem;
-    height: 3.25rem;
-    border-radius: 0.625rem;
+    height: 2.75rem;
+    min-width: 2.75rem;
+    border-radius: 0.5rem;
     background: #fff;
-    padding: 0.375rem;
+    padding: 0.3125rem 0.4375rem;
   }
 
+  /* The PCI mark is 2.6:1; a square tile would render it at half height. */
+  .accreditation__tile--wide { padding-inline: 0.5rem; }
+
   .accreditation__tile img {
-    width: 100%;
-    height: 100%;
+    height: 1.875rem;
+    width: auto;
     object-fit: contain;
   }
 
-  /* Certifications have no supplied artwork, so they are set as type. */
-  .accreditation__mark {
-    flex: 0 0 auto;
-    display: grid;
-    place-items: center;
-    width: 3.25rem;
-    height: 3.25rem;
-    border-radius: 0.625rem;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    font-family: var(--font-mono);
-    font-size: 0.5rem;
-    line-height: 1.35;
-    letter-spacing: 0.08em;
-    text-align: center;
-    color: var(--color-silver-500);
-  }
+</style>
 
-  .accreditation__mark strong {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    color: var(--color-silver-200);
-  }
-
-  .accreditation__text {
-    font-size: 0.8125rem;
-    line-height: 1.4;
-    color: var(--color-silver-400);
-  }
-
-  @media (min-width: 700px) {
-    .accreditation__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
-  }
+<style>
 </style>

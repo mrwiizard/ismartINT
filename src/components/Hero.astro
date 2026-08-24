@@ -66,13 +66,20 @@ const strips = [
     </div>
 
     {/* Headline — sits on clean graphite, nothing moving behind it */}
-    <h1
-      data-reveal
-      style="--reveal-delay:80ms"
-      class="max-w-[16ch] font-display text-[clamp(2.5rem,6.4vw,5.5rem)] font-extrabold leading-[0.96] tracking-[-0.035em]"
-    >
-      <span class="text-metal">Powering Africa's next generation of</span>
-      <span class="text-bronze-object"> digital payments.</span>
+    {/* The headline is supplied artwork (a rendered 3D lockup), but it stays
+        inside an <h1> and carries the wording in alt — so search engines and
+        screen readers still get the page's primary heading as text. */}
+    <h1 data-reveal style="--reveal-delay:80ms" class="hero-headline">
+      <img
+        src="/hero-headline-1600.webp"
+        srcset="/hero-headline-900.webp 900w, /hero-headline-1600.webp 1600w"
+        sizes="(min-width: 768px) min(42rem, 80vw), 86vw"
+        alt="Powering Africa's next generation of digital payments."
+        width="1600"
+        height="556"
+        fetchpriority="high"
+        decoding="async"
+      />
     </h1>
 
     {/* CTAs — Pulled up directly below the heading */}
@@ -151,6 +158,43 @@ const strips = [
 </section>
 
 <style>
+  /* ─── Headline lockup ───
+     Artwork, so it cannot reflow like type. It is capped in rem AND in vw so
+     it never outgrows the column on a wide screen or crowd the edges on a
+     narrow one, and the intrinsic ratio is declared to reserve its space
+     before it loads. */
+  .hero-headline {
+    width: 100%;
+    max-width: min(42rem, 80vw);
+    margin-inline: auto;
+  }
+
+  .hero-headline img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1600 / 556;
+    /* Driven from a scroll-linked custom property. Only transform and opacity
+       change, so the browser keeps it on the compositor. */
+    transform: translate3d(0, calc(var(--hero-scroll, 0) * -34px), 0)
+               scale(calc(1 - var(--hero-scroll, 0) * 0.06));
+    opacity: calc(1 - var(--hero-scroll, 0) * 0.55);
+    transform-origin: 50% 40%;
+    will-change: transform, opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-headline img {
+      transform: none;
+      opacity: 1;
+      will-change: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero-headline { max-width: 86vw; }
+  }
+
   /* Strips are masked out at the top so they never reach the headline, and
      faded at the bottom so they dissolve into the ground. */
   .strip-field {
@@ -194,3 +238,27 @@ const strips = [
     .strip:nth-child(n + 11) { display: none; }
   }
 </style>
+
+<script>
+  // The headline lifts and eases back as the hero scrolls away, so it never
+  // reads as a static plate.
+  //
+  // The property is written straight from the scroll handler rather than
+  // deferred to requestAnimationFrame: reading window.scrollY forces no
+  // layout, and writing one custom property is cheaper than the frame
+  // bookkeeping around it. The animation itself is transform + opacity, so it
+  // stays on the compositor.
+  const headline = document.querySelector('.hero-headline') as HTMLElement | null;
+
+  if (headline && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const update = () => {
+      // 0 at rest, 1 once the hero has scrolled a full viewport away.
+      const p = Math.min(1, Math.max(0, window.scrollY / window.innerHeight));
+      headline.style.setProperty('--hero-scroll', p.toFixed(4));
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }
+</script>

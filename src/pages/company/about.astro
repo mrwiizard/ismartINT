@@ -147,22 +147,17 @@ import { ArrowRight } from 'lucide-react';
   <section data-nav-theme="dark" class="ab-trust">
     <div class="ab-trust__inner">
       <div data-reveal="fade" class="ab-ripple">
-        <svg viewBox="0 0 620 620" fill="none" aria-hidden="true" focusable="false">
-          {[0, 1, 2, 3, 4, 5].map((i) => (
-            <path
-              class:list={['ab-ring', `ab-ring--${i}`]}
-              d="M170,250 C216,206 262,300 310,256 C358,212 404,296 450,252 L450,368 C404,412 358,328 310,372 C262,416 216,332 170,376 Z"
-              transform={`translate(310 310) scale(${1 + i * 0.42}) translate(-310 -310)`}
-              stroke="var(--color-emerald-400)"
-              stroke-width={(1.6 - i * 0.16).toFixed(2)}
-              stroke-linejoin="round"
-            />
-          ))}
-        </svg>
-
-        <div class="ab-ripple__mark">
-          <Logo mark="icon" height={62} alt="" loading="lazy" />
-        </div>
+        <img
+          src="/trust-cards-1100.webp"
+          srcset="/trust-cards-700.webp 700w, /trust-cards-1100.webp 1100w"
+          sizes="(min-width: 900px) 42vw, 86vw"
+          alt=""
+          aria-hidden="true"
+          width="1056"
+          height="1100"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
       <div class="ab-trust__copy">
@@ -495,10 +490,7 @@ import { ArrowRight } from 'lucide-react';
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    background-color: #08090A;
-    background-image:
-      radial-gradient(46% 40% at 26% 46%, rgba(0, 109, 91, 0.20), transparent 70%),
-      radial-gradient(40% 34% at 84% 88%, rgba(197, 121, 80, 0.05), transparent 74%);
+    background-color: #000;
     padding: 6rem 1.5rem 7rem;
   }
 
@@ -507,55 +499,24 @@ import { ArrowRight } from 'lucide-react';
     max-width: 74rem;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 3rem;
     align-items: center;
   }
 
-  /* ─ ripple field ─ */
+  /* The supplied render carries this side on its own. Its edges measure 6/255,
+     so it meets the black ground with no visible frame and needs no treatment. */
   .ab-ripple {
     position: relative;
     width: 100%;
     max-width: 30rem;
-    aspect-ratio: 1;
     justify-self: center;
   }
 
-  .ab-ripple svg { width: 100%; height: 100%; overflow: visible; }
-
-  .ab-ring {
-    transform-origin: center;
-    /* Each ring further out is fainter — the field reads as reach, not as a
-       stack of outlines. */
-    animation: ab-breathe 9s ease-in-out infinite;
-  }
-
-  .ab-ring--0 { opacity: 0.85; }
-  .ab-ring--1 { opacity: 0.55; animation-delay: -1.4s; }
-  .ab-ring--2 { opacity: 0.36; animation-delay: -2.8s; }
-  .ab-ring--3 { opacity: 0.22; animation-delay: -4.2s; }
-  .ab-ring--4 { opacity: 0.13; animation-delay: -5.6s; }
-  .ab-ring--5 { opacity: 0.07; animation-delay: -7s; }
-
-  @keyframes ab-breathe {
-    0%, 100% { opacity: var(--o, 0.4); }
-    50%      { opacity: calc(var(--o, 0.4) * 1.9); }
-  }
-
-  .ab-ring--0 { --o: 0.44; }
-  .ab-ring--1 { --o: 0.30; }
-  .ab-ring--2 { --o: 0.20; }
-  .ab-ring--3 { --o: 0.13; }
-  .ab-ring--4 { --o: 0.08; }
-  .ab-ring--5 { --o: 0.05; }
-
-  .ab-ripple__mark {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    filter: drop-shadow(0 0 34px rgba(0, 161, 132, 0.45));
+  .ab-ripple img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   /* ─ copy ─ */
@@ -610,8 +571,5 @@ import { ArrowRight } from 'lucide-react';
     .ab-trust__copy { justify-self: start; }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .ab-ring { animation: none; }
-  }
 
 </style>

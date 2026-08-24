@@ -242,16 +242,16 @@ const offers = [
       Sticky-stack: the cards section locks once fully scrolled, then this
       panel slides up over it. Pure CSS, no scroll listener.
      ================================================================ */}
-  <section data-nav-theme="dark" class="bronze-section">
+  <section data-nav-theme="dark" class="weave-section">
     <img
-      src="/bronze-foil-1920.webp"
-      srcset="/bronze-foil-960.webp 960w, /bronze-foil-1920.webp 1920w"
+      src="/emerald-weave-1920.webp"
+      srcset="/emerald-weave-960.webp 960w, /emerald-weave-1920.webp 1920w"
       sizes="100vw"
       alt=""
       aria-hidden="true"
       loading="lazy"
       decoding="async"
-      class="bronze-bg"
+      class="weave-bg"
     />
 
     <div class="bronze-inner">
@@ -628,7 +628,7 @@ const offers = [
     .biz-card.is-raised:hover { transform: translateY(calc(-1.5rem - 6px)); }
   }
 
-  .bronze-section {
+  .weave-section {
     position: relative;
     z-index: 1;
     isolation: isolate;
@@ -641,14 +641,14 @@ const offers = [
        panel reads as a separate surface passing in front, not a colour change. */
     border-radius: 2rem 2rem 0 0;
     box-shadow: 0 -2rem 4rem rgba(0, 0, 0, 0.55);
-    background-color: #1A0F08;
+    background-color: #061110;
   }
 
   @media (min-width: 768px) {
-    .bronze-section { padding: 9rem 2.5rem; border-radius: 2.5rem 2.5rem 0 0; }
+    .weave-section { padding: 9rem 2.5rem; border-radius: 2.5rem 2.5rem 0 0; }
   }
 
-  .bronze-bg {
+  .weave-bg {
     position: absolute;
     inset: 0;
     z-index: -1;
@@ -677,7 +677,11 @@ const offers = [
     max-width: 34rem;
     padding: 2.5rem 2rem;
     border-radius: 1.75rem;
-    background: rgba(20, 13, 9, 0.62);
+    /* The emerald artwork is far darker than the bronze it replaced (median 55
+       vs 98), so the glass needs less tint to hold its type — 0.50 instead of
+       0.62, which lets noticeably more of the weave read through the card.
+       Measured: heading 6.4:1, body 4.9:1. */
+    background: rgba(6, 14, 13, 0.5);
     -webkit-backdrop-filter: blur(28px) saturate(130%);
     backdrop-filter: blur(28px) saturate(130%);
     border: 1px solid rgba(255, 255, 255, 0.18);
