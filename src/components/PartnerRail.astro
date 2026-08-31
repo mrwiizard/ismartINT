@@ -1,0 +1,171 @@
+---
+/**
+ * Partner / network rail — a quiet strip of the names iSmart connects to.
+ *
+ * Each entry may carry a `logo`. When it does, the artwork is used; when it
+ * does not, the name renders as a text wordmark in the display face. That way
+ * the rail is complete and on-brand today, and dropping real logo files into
+ * public/partners/ upgrades it with no markup change.
+ *
+ * The names below are the networks the site already states iSmartPay clears
+ * through (see PaymentShowcase). Nothing here asserts a relationship the site
+ * was not already making.
+ */
+
+interface Partner {
+  /** Display name. Also the accessible name when a logo is supplied. */
+  name: string;
+  /** Optional path under public/, e.g. "/partners/mtn.webp". */
+  logo?: string;
+  /** Intrinsic size of the logo, so the row never shifts as images load. */
+  width?: number;
+  height?: number;
+}
+
+interface Props {
+  eyebrow?: string;
+  partners?: Partner[];
+}
+
+const {
+  eyebrow = 'Partners & networks',
+  partners = [
+    { name: 'MTN MoMo' },
+    { name: 'Telecel Cash' },
+    { name: 'AirtelTigo' },
+    { name: 'Visa' },
+    { name: 'Mastercard' },
+    { name: 'Verve' },
+  ],
+} = Astro.props;
+---
+
+<aside class="partner-rail" aria-label={eyebrow}>
+  <div class="partner-rail__inner">
+    <p class="partner-rail__eyebrow">{eyebrow}</p>
+
+    <ul class="partner-rail__list" role="list">
+      {
+        partners.map((partner) => (
+          <li class="partner-rail__item">
+            {partner.logo ? (
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                width={partner.width}
+                height={partner.height}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <span class="partner-rail__wordmark">{partner.name}</span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</aside>
+
+<style>
+  .partner-rail {
+    background-color: var(--color-off-white);
+    border-top: 1px solid rgba(22, 23, 26, 0.08);
+  }
+
+  .partner-rail__inner {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: 2.25rem 1.5rem 2.5rem;
+  }
+
+  .partner-rail__eyebrow {
+    margin: 0 0 1.5rem;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    /* Deliberately quiet, but still 4.5:1 on the off-white ground. */
+    color: #6B7075;
+  }
+
+  .partner-rail__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .partner-rail__item {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Supplied artwork is desaturated so one loud logo can't hijack the row.
+     The filter is held in custom properties because the CSS minifier rewrites
+     a literal grayscale(1) to the argument-less grayscale(), which not every
+     browser accepts — the same rewrite that once voided the header logo's
+     filter entirely. Custom property values are passed through untouched. */
+  .partner-rail__item img {
+    --rail-filter: grayscale(1);
+    --rail-filter-hover: grayscale(0);
+    height: 1.75rem;
+    width: auto;
+    object-fit: contain;
+    filter: var(--rail-filter);
+    opacity: 0.62;
+    transition: opacity 0.35s var(--ease-brand), filter 0.35s var(--ease-brand);
+  }
+
+  .partner-rail__wordmark {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: #6B7075;
+    white-space: nowrap;
+    transition: color 0.35s var(--ease-brand);
+  }
+
+  .partner-rail__item:hover img {
+    filter: var(--rail-filter-hover);
+    opacity: 1;
+  }
+
+  .partner-rail__item:hover .partner-rail__wordmark {
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .partner-rail__item img,
+    .partner-rail__wordmark {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .partner-rail__inner {
+      padding: 2.75rem 2rem 3rem;
+    }
+  }
+
+  /* The wordmarks only grow once there is room for the whole row on one line.
+     Bumping them at 768px stranded the last name on a line of its own. */
+  @media (min-width: 1024px) {
+    .partner-rail__list {
+      gap: 1.75rem 3rem;
+    }
+    .partner-rail__wordmark {
+      font-size: 1.25rem;
+    }
+    .partner-rail__item img {
+      height: 2rem;
+    }
+  }
+</style>

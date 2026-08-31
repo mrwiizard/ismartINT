@@ -2,7 +2,6 @@
 import { ISMARTPAY_URL } from '../config/site';
 import MainLayout from '../layouts/MainLayout.astro';
 import WaveDivider from '../components/WaveDivider.astro';
-import Logo from '../components/Logo.astro';
 import { ArrowRight } from 'lucide-react';
 
 /**
@@ -182,8 +181,8 @@ const moments = [
         </div>
       </div>
 
-      {/* Device, drawn rather than screenshotted: no invented app UI, just the
-          object and the wave moving through it. */}
+      {/* Supplied product artwork, so the screen shows the real app rather
+          than a stand-in. The waves still run behind it. */}
       <div data-reveal="fade" style="--reveal-delay:180ms" class="ph-device">
         <svg class="ph-device__waves" viewBox="0 0 520 640" fill="none" aria-hidden="true">
           <path class="ph-wave ph-wave--1" d="M-40 300 C120 210 220 400 380 320 C470 274 520 250 580 268"
@@ -194,12 +193,15 @@ const moments = [
                 stroke="var(--color-emerald-700)" stroke-width="1" opacity="0.28" />
         </svg>
 
-        <div class="ph-device__body">
-          <span class="ph-device__notch" aria-hidden="true"></span>
-          <div class="ph-device__screen">
-            <Logo mark="circuit" height={54} alt="" loading="lazy" />
-          </div>
-        </div>
+        <img
+          class="ph-device__shot"
+          src="/ismartpay-standard-app.webp"
+          alt="The iSmartPay app open on a phone, showing a wallet balance of GHS 98,556.00 and a list of recent transfers and withdrawals."
+          width="437"
+          height="868"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   </section>
@@ -481,6 +483,16 @@ const moments = [
     height: 100%;
     overflow: visible;
   }
+  /* The mockup carries its own drop shadow, so it needs none from CSS. Capped
+     at 16rem: the artwork is 437px wide, so this is about 1:1 on a 2x screen. */
+  .ph-device__shot {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 16rem;
+    height: auto;
+    aspect-ratio: 437 / 868;
+  }
 
   .ph-wave {
     stroke-dasharray: 8 720;
@@ -496,41 +508,8 @@ const moments = [
     to   { stroke-dashoffset: 0; }
   }
 
-  .ph-device__body {
-    position: relative;
-    width: 13.5rem;
-    aspect-ratio: 9 / 18.5;
-    border-radius: 2rem;
-    padding: 0.5rem;
-    background: linear-gradient(158deg, #33373D 0%, #15171A 46%, #26292E 100%);
-    box-shadow:
-      0 40px 80px -28px rgba(22, 23, 26, 0.42),
-      inset 0 1px 0 rgba(255, 255, 255, 0.16);
-  }
 
-  .ph-device__notch {
-    position: absolute;
-    top: 0.9rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 3.25rem;
-    height: 0.3rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.14);
-    z-index: 2;
-  }
 
-  .ph-device__screen {
-    height: 100%;
-    width: 100%;
-    border-radius: 1.6rem;
-    background:
-      radial-gradient(80% 55% at 50% 36%, rgba(0, 109, 91, 0.3), transparent 70%),
-      linear-gradient(180deg, #0C0E10 0%, #08090B 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 
   /* ══════════════ 4 · the close ══════════════ */
   .ph-close-sec {

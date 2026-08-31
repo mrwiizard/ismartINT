@@ -9,27 +9,27 @@ const SLIDES = [
     mark: { src: "/ismart-icon.png", filter: 'brightness(0) opacity(0.82)', w: 256, h: 256 },
     title: "Liquidity Infrastructure",
     desc: "Capital is dynamic. We build core infrastructure that enables funds to be stored, converted, and cleared in real time across systems. Re-routing the flow of value with absolute speed.",
-},
+  },
   {
     mark: { src: "/mark-circuit-black.webp", filter: undefined, w: 320, h: 321 },
     title: "Unified Cross-Border Payments",
     desc: "Accept cards, local wallets, and bank transfers using a single integration point. Bridge transaction systems instantly across borders with secure automated routing.",
-},
+  },
   {
     mark: { src: "/mark-circuit-bronze.webp", filter: 'brightness(0.65) saturate(1.05)', w: 320, h: 321 },
     title: "Enterprise Ledger Platform",
     desc: "Scale local and international enterprises with custom transaction ledgers, robust webhook systems, and automatic multi-currency payouts aligned with security compliance.",
-},
+  },
   {
     mark: { src: "/ismart-circuit-mark.webp", filter: undefined, w: 401, h: 300 },
     title: "Peer-to-Peer Networks",
-    desc: "Seamless connectivity for individuals. Real-time P2P mobile transfers, utilities payments, and secure personal wallets bringing the digital economy to everyone.",
-},
+    desc: "Seamless connectivity for individuals. Real-time P2P mobile transfers, utility payments, and secure personal wallets bringing the digital economy to everyone.",
+  },
   {
     mark: { src: "/new ismart logo.png", filter: 'brightness(0) opacity(0.86)', w: 2349, h: 626 },
     title: "Interconnected Corridors",
     desc: "Bridging cross-border transaction channels across West, East, and Southern Africa. A unified network core for borderless financial movement across the continent.",
-}
+  }
 ];
 
 export default function BrandStatement() {
@@ -65,7 +65,7 @@ export default function BrandStatement() {
 
     const setupTimelineAnimations = (tl: gsap.core.Timeline) => {
       const words = [w1.current, w2.current, w3.current, w4.current, w5.current];
-      
+
       // Animate line progress height and dot positioning over the first 80% of timeline duration
       tl.to(lineProgressRef.current, { height: '100%', ease: 'none', duration: 0.8 });
       tl.to(dotRef.current, { top: '100%', ease: 'none', duration: 0.8 }, '<');
@@ -73,7 +73,7 @@ export default function BrandStatement() {
       // Staggered word color transitions over 0.0 - 0.8 duration
       words.forEach((word, index) => {
         const startPos = (index / (words.length - 1)) * 0.8;
-        
+
         tl.to(word, {
           color: '#C09078', // Active bronze glow highlight
           textShadow: '0 0 20px rgba(197, 121, 80, 0.35)',
@@ -82,14 +82,14 @@ export default function BrandStatement() {
           duration: 0.12,
           ease: 'power1.out',
         }, startPos - 0.04 > 0 ? startPos - 0.04 : 0)
-        .to(word, {
-          color: '#202124', // Completed graphite dark settling
-          textShadow: '0 0 0px rgba(0,0,0,0)',
-          opacity: 0.3, // Dim non-active words
-          scale: 1.0,
-          duration: 0.12,
-          ease: 'power1.in',
-        }, startPos + 0.12 < 0.8 ? startPos + 0.12 : 0.78);
+          .to(word, {
+            color: '#202124', // Completed graphite dark settling
+            textShadow: '0 0 0px rgba(0,0,0,0)',
+            opacity: 0.3, // Dim non-active words
+            scale: 1.0,
+            duration: 0.12,
+            ease: 'power1.in',
+          }, startPos + 0.12 < 0.8 ? startPos + 0.12 : 0.78);
       });
 
       // Add a 20% empty duration buffer at the end to hold the pin at the last slide
@@ -112,7 +112,7 @@ export default function BrandStatement() {
           },
           onUpdate: (self) => {
             const progress = self.progress;
-            
+
             // Map scroll progress to indices based on segment thresholds
             let idx = 0;
             if (progress < 0.1) idx = 0;
@@ -147,7 +147,7 @@ export default function BrandStatement() {
           },
           onUpdate: (self) => {
             const progress = self.progress;
-            
+
             let idx = 0;
             if (progress < 0.1) idx = 0;
             else if (progress < 0.3) idx = 1;
@@ -174,7 +174,7 @@ export default function BrandStatement() {
       <div ref={triggerRef} className="h-screen flex items-center bg-off-white relative overflow-hidden">
         {/* Background glows */}
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 rounded-full bg-brand-emerald/5 blur-[130px] pointer-events-none" />
-        
+
         {/* Subtle vertical background grid lines (Stripe style) */}
         <div className="absolute inset-x-0 top-0 bottom-0 max-w-7xl mx-auto w-full h-full grid grid-cols-5 pointer-events-none px-6 md:px-12 z-0" aria-hidden="true">
           <div className="border-r border-neutral-200/40 h-full"></div>
@@ -185,40 +185,39 @@ export default function BrandStatement() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
+
           {/* Left Column: Interactive Explainer Cards (Stacked absolute layout) */}
           <div className="lg:col-span-6 relative h-[360px] md:h-[280px] lg:h-[340px]">
             {SLIDES.map((slide, index) => {
               const isActive = activeIndex === index;
               return (
-                <div 
+                <div
                   key={index}
-                  className={`absolute inset-0 flex flex-col md:flex-row items-center gap-6 md:gap-8 p-6 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.14)] border border-white/35 transition-all duration-500 ease-out overflow-hidden ${
-                    isActive 
-                      ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' 
+                  className={`absolute inset-0 flex flex-col md:flex-row items-center gap-6 md:gap-8 p-6 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.14)] border border-white/35 transition-all duration-500 ease-out overflow-hidden ${isActive
+                      ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
                       : 'opacity-0 translate-y-4 scale-95 pointer-events-none'
-                  }`}
+                    }`}
                 >
                   {/* Silver Titanium Metal Card Background Image */}
-                  <img 
-                    src="/silver-titanium-card.png" 
-                    alt="" 
-                    aria-hidden="true" 
+                  <img
+                    src="/silver-titanium-card.png"
+                    alt=""
+                    aria-hidden="true"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none rounded-3xl z-0"
                   />
                   {/* Gradient sheet to lighten the left metallic region for perfect text readability while keeping the brushed metal texture visible */}
                   <div className="absolute inset-y-0 left-0 w-full md:w-[70%] bg-gradient-to-r from-white/88 via-white/55 to-transparent pointer-events-none z-0" />
-                  
+
                   {/* Subtle lighting shine effect */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/25 pointer-events-none z-0" />
 
                   {/* Slide text details */}
                   <div className="flex-1 flex flex-col gap-4 text-left relative z-10">
-                    
+
                     <h3 className="text-2xl md:text-3xl font-display font-extrabold text-neutral-950 leading-tight">
                       {slide.title}
                     </h3>
-                    
+
                     <p className="text-xs md:text-sm text-neutral-800 font-semibold leading-relaxed">
                       {slide.desc}
                     </p>
@@ -241,9 +240,8 @@ export default function BrandStatement() {
                       height={slide.mark.h}
                       loading="lazy"
                       decoding="async"
-                      className={`relative object-contain transition-all duration-700 ease-out ${
-                        isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-                      } ${slide.mark.w > 1000 ? 'h-auto w-4/5' : 'h-3/5 w-3/5'}`}
+                      className={`relative object-contain transition-all duration-700 ease-out ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                        } ${slide.mark.w > 1000 ? 'h-auto w-4/5' : 'h-3/5 w-3/5'}`}
                       style={slide.mark.filter ? { filter: slide.mark.filter } : undefined}
                     />
                   </div>
@@ -255,7 +253,7 @@ export default function BrandStatement() {
           {/* Right Column: Pinned Core Timeline Track */}
           <div className="lg:col-span-6 flex justify-center items-center h-[35vh] lg:h-[60vh]">
             <div className="relative flex items-stretch h-full gap-8 md:gap-16">
-              
+
               {/* Timeline Vertical Progress Wire */}
               <div className="relative w-[2px] bg-neutral-200/80 flex-shrink-0">
                 <div
