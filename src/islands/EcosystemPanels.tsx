@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
+import { ISMARTPAY_URL } from '../config/site';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -168,7 +169,7 @@ export default function EcosystemPanels() {
               </p>
 
               <a
-                href="/solutions/ismartpay/"
+                href={ISMARTPAY_URL}
                 className="group mt-1 inline-flex items-center gap-2.5 rounded-full bg-graphite-950 px-7 py-3.5 font-display text-sm font-semibold text-white transition-all duration-300 hover:bg-graphite-800"
               >
                 See how it works

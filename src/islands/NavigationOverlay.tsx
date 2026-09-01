@@ -106,6 +106,7 @@ export default function NavigationOverlay() {
           {[
             { label: 'Personal',  href: '/personal/',  desc: 'Send, receive and manage money.' },
             { label: 'Business',  href: '/business/',  desc: 'Accept payments and scale across Africa.' },
+            { label: 'About Us',  href: '/company/about/', desc: 'Who we are and what we build.' },
           ].map((item) => (
             <a
               key={item.href}
